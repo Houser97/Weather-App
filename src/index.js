@@ -46,6 +46,8 @@ const flow = ((doc) => {
     else if (display.description === "broken clouds") img.src = "broken-clouds.jpg";
     else if (display.description === "clear sky") img.src = "Clear-sky.jpg";
     else if (display.description === "scattered clouds") img.src = "scattered-clouds.jpg";
+    else if (display.description.substr(-4) === "rain") img.src = "rain.jpg";
+    else if (display.description === "snow") img.src = "snow.jpg";
     else img.src = "Background.jpg";
   }
 
