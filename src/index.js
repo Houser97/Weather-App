@@ -18,9 +18,9 @@ const displayObject = (() => {
 
 const flow = ((doc) => {
   const form = doc.querySelector("form");
+  const input = doc.querySelector("input");
 
   function getInputValue() {
-    const input = doc.querySelector("input");
     const city = input.value;
     input.value = "";
     return city;
@@ -45,6 +45,7 @@ const flow = ((doc) => {
     else if (display.description === "overcast clouds") img.src = "Overcast-clouds.jpg";
     else if (display.description === "broken clouds") img.src = "broken-clouds.jpg";
     else if (display.description === "clear sky") img.src = "Clear-sky.jpg";
+    else if (display.description === "scattered clouds") img.src = "scattered-clouds.jpg";
     else img.src = "Background.jpg";
   }
 
@@ -60,13 +61,15 @@ const flow = ((doc) => {
         const latitude = response.coord.lat;
         const longitude = response.coord.lon;
 
+        input.classList.remove("error");
+
         displayObject.addData(namePlace, temperature, descriptionWeather, latitude, longitude);
         changeDisplay(displayObject.display);
         changeImageBackground(displayObject.display);
         console.log(response);
       })
       .catch(() => {
-        console.log("Error");
+        input.classList.add("error");
       });
   }
 

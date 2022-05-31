@@ -125,6 +125,10 @@ form input {
     padding: 10px 10px;
 }
 
+form .error {
+    border: 3px solid rgb(243, 12, 12);
+}
+
 button {
     position: absolute;
     right: 5px;
