@@ -1,12 +1,23 @@
 import { View, TextInput, StyleSheet } from 'react-native'
 import Constants from 'expo-constants'
 import Icon from 'react-native-vector-icons/Ionicons'
+import { useState } from 'react'
+import { TouchableOpacity } from 'react-native-web'
 
-const Search = () => {
+const Search = ({setCity}) => {
+
+  const [localCity, setLocalCity] = useState('')
+
   return (
     <View style = {styles.search}>
-        <TextInput style = {styles.input}></TextInput>
-        <Icon name='search' size={28} color='white'/>
+        <TextInput 
+         value = {localCity}
+         onChangeText = {(city) => setLocalCity(city)}
+         placeholder = {'Search city'}
+         style = {styles.input}></TextInput>
+        <TouchableOpacity onPress={() => setCity(localCity)}>
+          <Icon name='search' size={28} color='white' />
+        </TouchableOpacity>
     </View>
   )
 }
@@ -25,7 +36,8 @@ const styles = StyleSheet.create({
     },
     input: {
         flex: 1,
-        paddingRight: 5
+        paddingRight: 5,
+        color:'white'
     }
 })
 
