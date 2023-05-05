@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 
 export default function App() {
 
-  const [weatherData, setWeatherData] = useState(null)
+  const [weatherData, setWeatherData] = useState({})
   const [city, setCity] = useState('')
 
   useEffect(() => {
@@ -14,7 +14,14 @@ export default function App() {
 
     const fetchWeatherData = async () => {
       const weatherDataRaw = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=a17d8aca84846ee500b328a8df181e45`, { mode: "cors" })
-      const weatherData = await weatherDataRaw.json()
+      const {weather, coord, main, name, wind} = await weatherDataRaw.json()
+      const weatherData = {
+        description: weather[0].description,
+        temperature: main.temp,
+        coord,
+        city: name,
+        wind
+      }
       setWeatherData(weatherData)
     }
 
@@ -27,7 +34,11 @@ export default function App() {
       <Image source={backgroundBlue} style={styles.bgImage}></Image>
       <View style={styles.appContainer}>
         <Search setCity={setCity} />
-        <WeatherCard weatherData={weatherData} date = {`${new Date()}`.substring(0,10)} />
+        <WeatherCard 
+         temperature={weatherData.temperature} 
+         city={weatherData.city} 
+         description={weatherData.description} 
+         date = {`${new Date()}`.substring(0,10)} />
       </View>
     </SafeAreaView>
   );

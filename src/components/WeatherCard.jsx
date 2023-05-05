@@ -1,46 +1,21 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'; 
 
-const WeatherCard = ({weatherData, date}) => {
-
-    const [data, setData] = useState(null)
-
-    useEffect(() => {
-        if(!weatherData) return undefined
-        const dataObject = {
-            temperature: weatherData.main.temp,
-            city: weatherData.name,
-            weather: weatherData.weather[0].description,
-        }
-        setData(dataObject)
-    }, [weatherData])
-
-    const weatherCardContent = () => {
-        if(data) {
-            return(
-                <View style = {styles.weatherCard}>
-                    <View style = {styles.cardBackground}></View>
-                    <View style = {styles.temperature}>
-                        <Text style = {styles.wheaterNumber}>{data.temperature}</Text>
-                        <Text style = {styles.celsius}>°C</Text>
-                    </View>
-                    <Ionicons name="partly-sunny-outline" size={124} color="#FFD700" />
-                    <Text style = {styles.today}>{data.weather}</Text>
-                    <Text style = {styles.date}>{date}</Text>
-                    <Text style = {styles.place}>{data.city}</Text>
-                </View>
-            )
-        } 
-        return(
-            <View style = {styles.weatherCard}>
-                <Text style = {styles.today}>Weather App</Text>
-            </View>
-        )
-    }
+const WeatherCard = ({temperature, description, city, date}) => {
 
   return (  
-        weatherCardContent()
+    <View style = {styles.weatherCard}>
+        <View style = {styles.cardBackground}></View>
+        <View style = {styles.temperature}>
+            <Text style = {styles.wheaterNumber}>{temperature}</Text>
+            <Text style = {styles.celsius}>°C</Text>
+        </View>
+        <Ionicons name="partly-sunny-outline" size={124} color="#FFD700" />
+        <Text style = {styles.today}>{description}</Text>
+        <Text style = {styles.date}>{date}</Text>
+        <Text style = {styles.place}>{city}</Text>
+    </View>
   )
 }
 
