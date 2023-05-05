@@ -4,6 +4,12 @@ import WeatherCard from './src/components/WeatherCard';
 import backgroundBlue from './src/Assets/Background/Bg2.jpg'
 import { useEffect, useState } from 'react';
 
+const capitalizeFirstLetter = (word) => {
+  let firstLetter = word.charAt(0)
+  let firstLetterCap = firstLetter.toUpperCase()
+  return firstLetterCap + word.slice(1)
+}
+
 export default function App() {
 
   const [weatherData, setWeatherData] = useState({})
@@ -16,7 +22,10 @@ export default function App() {
       const weatherDataRaw = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=a17d8aca84846ee500b328a8df181e45`, { mode: "cors" })
       const {weather, coord, main, name, wind} = await weatherDataRaw.json()
       const weatherData = {
-        description: weather[0].description,
+        description: capitalizeFirstLetter(weather[0].description),
+        humidity: weather[0].humidity,
+        pressure: weather[0].pressure,
+        sea_level: weather[0].sea_level,
         temperature: main.temp,
         coord,
         city: name,
