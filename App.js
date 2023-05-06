@@ -1,8 +1,10 @@
 import { StyleSheet, Text, View, Image, SafeAreaView } from 'react-native';
 import Search from './src/components/Search';
 import WeatherCard from './src/components/WeatherCard';
-import backgroundBlue from './src/Assets/Background/Bg2.jpg'
+//import backgroundBlue from './src/Assets/Background/Bg2.jpg'
+import backgroundBlue from './src/Assets/Background/Bg3.jpg'
 import { useEffect, useState } from 'react';
+import DataCard from './src/components/DataCard';
 
 const capitalizeFirstLetter = (word) => {
   let firstLetter = word.charAt(0)
@@ -13,27 +15,37 @@ const capitalizeFirstLetter = (word) => {
 export default function App() {
 
   const [weatherData, setWeatherData] = useState({})
-  const [city, setCity] = useState('')
+  const [city, setCity] = useState('Puebla')
 
   useEffect(() => {
     if(city === '') return undefined;
 
+    const getCityCoords = async (city) => {
+      const coordsDataRaw = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=a17d8aca84846ee500b328a8df181e45`, { mode: "cors" })
+      const coordsData = await coordsDataRaw.json()
+      return {lat: coordsData[0].lat, lon: coordsData[0].lon}
+    }
+
     const fetchWeatherData = async () => {
-      const weatherDataRaw = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=a17d8aca84846ee500b328a8df181e45`, { mode: "cors" })
-      const {weather, coord, main, name, wind} = await weatherDataRaw.json()
+      const {lat, lon} = await getCityCoords(city)
+      const weatherDataRaw = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=hourly,alerts&units=metric&appid=a17d8aca84846ee500b328a8df181e45`, { mode: "cors" })
+      const {current, daily} = await weatherDataRaw.json()
+      //console.log(current)
+      const {humidity, pressure, temp, visibility, wind_speed, weather} = current
       const weatherData = {
         description: capitalizeFirstLetter(weather[0].description),
-        humidity: weather[0].humidity,
-        pressure: weather[0].pressure,
-        sea_level: weather[0].sea_level,
-        temperature: main.temp,
-        coord,
-        city: name,
-        wind
+        humidity: humidity,
+        pressure: pressure,
+        temperature: temp,
+        weather: weather[0].main,
+        lat,
+        lon,
+        city,
+        wind: wind_speed,
+        visibility
       }
       setWeatherData(weatherData)
     }
-
     fetchWeatherData()
     
   }, [city])
@@ -47,7 +59,14 @@ export default function App() {
          temperature={weatherData.temperature} 
          city={weatherData.city} 
          description={weatherData.description} 
-         date = {`${new Date()}`.substring(0,10)} />
+         date = {`${new Date()}`.substring(0,10)}
+         icon = {weatherData.weather} />
+        <View style={styles.appContainerData}>
+          <DataCard value={weatherData.humidity} icon={'humidity'} variable={'Humidity'} /> 
+          <DataCard value={weatherData.pressure} icon={'pressure'} variable={'Pressure'} /> 
+          <DataCard value={weatherData.wind} icon={'wind'} variable={'Wind speed'} /> 
+          <DataCard value={weatherData.visibility} icon={'visibility'} variable={'Visibility'} /> 
+        </View>
       </View>
     </SafeAreaView>
   );
@@ -73,5 +92,14 @@ const styles = StyleSheet.create({
     top:0,
     left:0,
     zIndex: -10
+  },
+  appContainerData: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    marginTop: 20,
+    gap: 30,
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 })
