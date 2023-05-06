@@ -1,8 +1,8 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
-import { Ionicons } from '@expo/vector-icons'; 
+import { TEXT_COLOR, weatherIcons } from '../Assets/constants'
 
-const WeatherCard = ({temperature, description, city, date}) => {
+const WeatherCard = ({temperature, description, city, date, icon}) => {
 
   return (  
     <View style = {styles.weatherCard}>
@@ -11,7 +11,7 @@ const WeatherCard = ({temperature, description, city, date}) => {
             <Text style = {styles.wheaterNumber}>{temperature}</Text>
             <Text style = {styles.celsius}>°C</Text>
         </View>
-        <Ionicons name="partly-sunny-outline" size={124} color="#FFD700" />
+        {weatherIcons[icon]}
         <Text style = {styles.today}>{description}</Text>
         <Text style = {styles.date}>{date}</Text>
         <Text style = {styles.place}>{city}</Text>
@@ -42,40 +42,40 @@ const styles = StyleSheet.create({
         left: 0
     },
     wheaterNumber: {
-        fontSize: 60,
-        color: 'white'
+        fontSize: 50,
+        color: TEXT_COLOR
     },
     temperature: {
         flexDirection: 'row',
         position: 'relative',
     },
     celsius: {
-        color: '#FFD700',
+        color: TEXT_COLOR,
         fontSize: 40,
         position: 'relative',
         top: 0,
         right: 0
     },
     today: {
-        fontSize: 24,
+        fontSize: 20,
         position: 'absolute',
-        top: 20,
-        left: 40,
-        color: 'white'
+        bottom: 20,
+        left: 20,
+        color: TEXT_COLOR,
     }, 
     date: {
         position: 'absolute',
         top: 25,
         right: 40,
         fontSize: 13,
-        color: 'white'
+        color: TEXT_COLOR,
     },
     place: {
         position: 'absolute',
-        bottom: 20,
+        top: 20,
         left: 40,
         fontSize: 18,
-        color: 'white'
+        color: TEXT_COLOR,
     }
 })
 
