@@ -11,6 +11,8 @@ export const TEXT_COLOR = 'white'
 export const ICON_SIZE = 100
 export const ICON_SIZE_SMALL = 40
 
+export const filterOptions = [{status: 'daily'}, {status: 'hourly'}]
+
 export const weatherIcons = {
     Thunderstorm: <Ionicons name="thunderstorm-outline" size={ICON_SIZE} color={ICON_COLOR} />,
     Drizzle: <Feather name="cloud-drizzle" size={ICON_SIZE} color={ICON_COLOR} />,
