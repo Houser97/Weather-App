@@ -6,6 +6,7 @@ import backgroundBlue from './src/Assets/Background/pint6.jpg'
 import { useEffect, useState } from 'react';
 import DataCard from './src/components/DataCard';
 import Forecast from './src/components/Forecast';
+import Filter from './src/components/Filter';
 
 const capitalizeFirstLetter = (word) => {
   let firstLetter = word.charAt(0)
@@ -29,6 +30,7 @@ export default function App() {
 
   const [weatherData, setWeatherData] = useState({current: {}, forecast: [], hourly: []})
   const [city, setCity] = useState('Puebla')
+  const [filter, setFilter] = useState('daily')
 
   useEffect(() => {
     if(city === '') return undefined;
@@ -118,7 +120,13 @@ export default function App() {
             <DataCard value={weatherData.current.wind} icon={'wind'} variable={'Wind speed'} /> 
             {/*<DataCard value={weatherData.current.visibility} icon={'visibility'} variable={'Visibility'} />*/}
           </View>
-          {(weatherData.forecast).length !== 0 && <Forecast forecastData={weatherData.forecast}/>}
+          <Filter filter={filter} setFilter={setFilter} />
+          {
+            filter === 'daily' ? 
+              (weatherData.forecast).length !== 0 && <Forecast forecastData={weatherData.forecast}/>
+              :
+              (weatherData.hourly).length !== 0 && <Forecast forecastData={weatherData.hourly}/>
+          }
         </View>  
       </ScrollView>
     </SafeAreaView>
