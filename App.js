@@ -14,11 +14,18 @@ const capitalizeFirstLetter = (word) => {
 
 export default function App() {
 
-  const [weatherData, setWeatherData] = useState({})
+  const [weatherData, setWeatherData] = useState({current: {}, forecast: []})
   const [city, setCity] = useState('Puebla')
 
   useEffect(() => {
     if(city === '') return undefined;
+
+    const getDateFromDT = (dt) => {
+      const dateRaw = new Date(dt * 1000)
+      const date = dateRaw.toLocaleDateString()
+      const day = dateRaw.toLocaleString('en-US', { weekday: 'long' });
+      return {day, date}
+    }
 
     const getCityCoords = async (city) => {
       const coordsDataRaw = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=a17d8aca84846ee500b328a8df181e45`, { mode: "cors" })
@@ -30,9 +37,12 @@ export default function App() {
       const {lat, lon} = await getCityCoords(city)
       const weatherDataRaw = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=hourly,alerts&units=metric&appid=a17d8aca84846ee500b328a8df181e45`, { mode: "cors" })
       const {current, daily} = await weatherDataRaw.json()
-      //console.log(current)
-      const {humidity, pressure, temp, visibility, wind_speed, weather} = current
-      const weatherData = {
+      console.log(current)
+      console.log(daily)
+      const {humidity, pressure, temp, visibility, wind_speed, weather, feels_like, dt} = current
+      const {day, date} = getDateFromDT(dt)
+
+      const currentData = {
         description: capitalizeFirstLetter(weather[0].description),
         humidity: humidity,
         pressure: pressure,
@@ -41,9 +51,32 @@ export default function App() {
         lat,
         lon,
         city,
+        feels_like,
         wind: wind_speed,
-        visibility
+        visibility,
+        date,
+        day
       }
+
+      const forecastData = []
+
+      for(const forecast of daily){
+        const dt = forecast.dt;
+        const {day, date} = getDateFromDT(dt)
+        const data = {
+          day,
+          date,
+          temperature: forecast.temp.day,
+          feels_like: forecast.feels_like.day,
+          weather: forecast.weather[0].main
+        }
+        forecastData.push(data)
+      }
+
+      console.table(forecastData)
+
+      const weatherData = {current: currentData, forecast: forecastData}
+
       setWeatherData(weatherData)
     }
     fetchWeatherData()
@@ -56,16 +89,17 @@ export default function App() {
       <View style={styles.appContainer}>
         <Search setCity={setCity} />
         <WeatherCard 
-         temperature={weatherData.temperature} 
-         city={weatherData.city} 
-         description={weatherData.description} 
-         date = {`${new Date()}`.substring(0,10)}
-         icon = {weatherData.weather} />
+         temperature={weatherData.current.temperature} 
+         city={weatherData.current.city} 
+         description={weatherData.current.description} 
+         date = {weatherData.current.date}
+         icon = {weatherData.current.weather} />
         <View style={styles.appContainerData}>
-          <DataCard value={weatherData.humidity} icon={'humidity'} variable={'Humidity'} /> 
-          <DataCard value={weatherData.pressure} icon={'pressure'} variable={'Pressure'} /> 
-          <DataCard value={weatherData.wind} icon={'wind'} variable={'Wind speed'} /> 
-          <DataCard value={weatherData.visibility} icon={'visibility'} variable={'Visibility'} /> 
+          <DataCard value={weatherData.current.feels_like} icon={'feels_like'} variable={'Feels like'} /> 
+          <DataCard value={weatherData.current.humidity} icon={'humidity'} variable={'Humidity'} /> 
+          <DataCard value={weatherData.current.pressure} icon={'pressure'} variable={'Pressure'} /> 
+          <DataCard value={weatherData.current.wind} icon={'wind'} variable={'Wind speed'} /> 
+          <DataCard value={weatherData.current.visibility} icon={'visibility'} variable={'Visibility'} />
         </View>
       </View>
     </SafeAreaView>
