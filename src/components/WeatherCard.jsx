@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
-import { TEXT_COLOR, weatherIcons } from '../Assets/constants'
+import { MistCategory, TEXT_COLOR, weatherIcons } from '../Assets/constants'
 
 const WeatherCard = ({temperature, description, city, date, icon}) => {
 
@@ -11,7 +11,7 @@ const WeatherCard = ({temperature, description, city, date, icon}) => {
             <Text style = {styles.wheaterNumber}>{temperature}</Text>
             <Text style = {styles.celsius}>°C</Text>
         </View>
-        {weatherIcons[icon]}
+        {weatherIcons[icon] ? weatherIcons[icon] : MistCategory}
         <Text style = {styles.today}>{description}</Text>
         <Text style = {styles.date}>{date}</Text>
         <Text style = {styles.place}>{city}</Text>
@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
     cardBackground: {
         width: '100%',
         height: '100%',
-        opacity: 0.08,
+        opacity: 0.09,
         backgroundColor: 'white',
         position: 'absolute',
         borderRadius: 20,
