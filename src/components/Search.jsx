@@ -1,13 +1,31 @@
-import { View, TextInput, StyleSheet } from 'react-native'
+import { View, TextInput, StyleSheet, ActivityIndicator } from 'react-native'
 import Constants from 'expo-constants'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { useState } from 'react'
 import { TouchableOpacity } from 'react-native'
 
-const Search = ({setCity}) => {
+const Search = ({setCity, isLoading, setIsLoading}) => {
 
   const [localCity, setLocalCity] = useState('')
 
+  const handlePress = (localCity) => {
+    setIsLoading(true)
+    setCity(localCity)
+  }
+
+  const SearchButton = () => {
+    if(!isLoading) {
+      return(
+        <TouchableOpacity onPress={() => handlePress(localCity)}>
+          <Icon name='search' size={28} color='white'/>
+        </TouchableOpacity>
+      )
+    }
+    return(
+      <ActivityIndicator size={'large'}  color="white" />
+    )
+  }
+ 
   return (
     <View style = {styles.search}>
         <TextInput 
@@ -16,9 +34,7 @@ const Search = ({setCity}) => {
          placeholder = {'Search city'}
          placeholderTextColor="white" 
          style = {styles.input}></TextInput>
-         <TouchableOpacity onPress={() => setCity(localCity)}>
-          <Icon name='search' size={28} color='white'/>
-        </TouchableOpacity>
+         {SearchButton()}
     </View>
   )
 }
