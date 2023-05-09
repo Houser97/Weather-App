@@ -31,6 +31,7 @@ export default function App() {
   const [weatherData, setWeatherData] = useState({current: {}, forecast: [], hourly: []})
   const [city, setCity] = useState('Puebla')
   const [filter, setFilter] = useState('daily')
+  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
     if(city === '') return undefined;
@@ -49,6 +50,7 @@ export default function App() {
       const {day, date} = getDateFromDT(dt)
 
       const currentData = {
+        dt,
         description: capitalizeFirstLetter(weather[0].description),
         humidity: humidity,
         pressure: pressure,
@@ -70,11 +72,14 @@ export default function App() {
         const dt = forecast.dt;
         const {day, date} = getDateFromDT(dt)
         const data = {
+          dt,
           day,
           date,
           temperature: forecast.temp.day,
           feels_like: forecast.feels_like.day,
-          weather: forecast.weather[0].main
+          weather: forecast.weather[0].main,
+          type: 'daily',
+          city //Se agrega para mejorar KEY al momento de renderizar ForecastCard en Forecast.
         }
         forecastData.push(data)
       }
@@ -84,11 +89,16 @@ export default function App() {
       for(const forecast of hourly){
         const dt = forecast.dt;
         const hour = getHourFromDT(dt)
+        const {day, date} = getDateFromDT(dt)
         const data = {
+          dt,
           hour,
+          date,
+          day,
           temperature: forecast.temp,
           feels_like: forecast.feels_like,
-          weather: forecast.weather[0].main
+          weather: forecast.weather[0].main,
+          type: 'hourly'
         }
         forecastDataHourly.push(data)
       }
@@ -96,6 +106,7 @@ export default function App() {
       const weatherData = {current: currentData, forecast: forecastData, hourly: forecastDataHourly}
 
       setWeatherData(weatherData)
+      setIsLoading(false)
     }
     fetchWeatherData()
     
@@ -106,7 +117,7 @@ export default function App() {
       <Image source={backgroundBlue} style={styles.bgImage}></Image>
       <ScrollView style={styles.scroll}>
         <View style={styles.appContainer}>
-          <Search setCity={setCity} />
+          <Search setCity={setCity} isLoading={isLoading} setIsLoading={setIsLoading} />
           <WeatherCard 
           temperature={weatherData.current.temperature} 
           city={weatherData.current.city} 
