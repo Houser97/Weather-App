@@ -1,7 +1,6 @@
-import { StyleSheet, Text, View, Image, SafeAreaView, ScrollView, ActivityIndicator } from 'react-native';
+import { StyleSheet, View, Image, SafeAreaView, ScrollView, ActivityIndicator } from 'react-native';
 import Search from './src/components/Search';
 import WeatherCard from './src/components/WeatherCard';
-//import backgroundBlue from './src/Assets/Background/Bg2.jpg'
 import backgroundBlue from './src/Assets/Background/pint6.jpg'
 import { useEffect, useState } from 'react';
 import Forecast from './src/components/Forecast';
@@ -14,7 +13,7 @@ export default function App() {
   const [weatherData, setWeatherData] = useState({current: {}, forecast: [], hourly: [], hasData: false})
   const [city, setCity] = useState('Puebla')
   const [filter, setFilter] = useState('daily')
-  const [filterDailyData, setFilterDailyData] = useState('set4')
+  const [filterDailyData, setFilterDailyData] = useState('set1')
   const [isLoading, setIsLoading] = useState(false) //Loading para componente Search
   const [isLoadingData, setIsLoadingData] = useState(true) //Loading para predicciones.
 
@@ -36,6 +35,16 @@ export default function App() {
     handleCityChange()
   }, [city])
 
+  const forecastSection = () => {
+    return(
+        isLoadingData ? <ActivityIndicator size={100} color='white' style={{marginTop:50}}/> :
+        filter === 'daily' ? 
+          (weatherData.forecast).length !== 0 && <Forecast forecastData={weatherData.forecast}/>
+          :
+          (weatherData.hourly).length !== 0 && <Forecast forecastData={weatherData.hourly[filterDailyData]}/>
+    )
+  }
+
   return (
     <SafeAreaView style={styles.mainView}>
       <Image source={backgroundBlue} style={styles.bgImage}></Image>
@@ -44,14 +53,8 @@ export default function App() {
           <Search setCity={setCity} isLoading={isLoading} setIsLoading={setIsLoading} />
           <WeatherCard {...weatherData.current} />
           <ExtraData {...weatherData.current} />
-          <Filter filter={filter} setFilter={setFilter} />
-          {
-            isLoadingData ? <ActivityIndicator size={100} color='white' style={{marginTop:50}}/> :
-            filter === 'daily' ? 
-              (weatherData.forecast).length !== 0 && <Forecast forecastData={weatherData.forecast}/>
-              :
-              (weatherData.hourly).length !== 0 && <Forecast forecastData={weatherData.hourly[filterDailyData]}/>
-          }
+          <Filter filter={filter} setFilter={setFilter} filterDailyData={filterDailyData} setFilterDailyData={setFilterDailyData}  />
+          {forecastSection()}
         </View>  
       </ScrollView>
     </SafeAreaView>
