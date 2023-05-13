@@ -1,50 +1,26 @@
 import React from 'react'
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
-import { filterOptions, TEXT_COLOR } from '../Assets/constants';
+import { StyleSheet, View } from 'react-native';
+import DotsFilter from './DotsFilter';
+import FilterButtons from './FilterButtons';
 
-const Filter = ({filter, setFilter}) => {
+const Filter = ({filter, setFilter, filterDailyData, setFilterDailyData}) => {
   return (
     <View style={styles.filterContainer}>
-        {filterOptions.map((optionFilter, index) => {
-            return(
-                <TouchableOpacity 
-                 style={[styles.button, filter === optionFilter.status && styles.selected]} 
-                 key = {`filter-option-${index}`}
-                 onPress={() => setFilter(optionFilter.status)}>
-                    <Text style={[styles.option, filter === optionFilter.status && styles.selectedButton]}>{optionFilter.status}</Text>
-                </TouchableOpacity>
-            )
-        })}
+        <FilterButtons filter={filter} setFilter={setFilter} />
+        {filter === 'hourly' && <DotsFilter filterDailyData={filterDailyData} setFilterDailyData={setFilterDailyData} />}
     </View>
   )
 }
 
 const styles = StyleSheet.create({
     filterContainer: {
-        flexDirection: 'row',
+        flexDirection: 'column',
         width: '100%',
         justifyContent: 'center',
         alignItems: 'center',
         gap: 30,
-        marginTop: 40
-    }, 
-    option: {
-        color: TEXT_COLOR,
-        fontSize: 20,
-        fontWeight: 'bold'
-    },
-    button: {
-        borderWidth: 2,
-        borderColor: 'white',
-        paddingHorizontal: 20,
-        paddingVertical: 10,
-        borderRadius: 5
-    },
-    selected: {
-        backgroundColor: 'white',
-    },
-    selectedButton:{
-        color: 'black',
+        marginTop: 40,
+        flexWrap: 'wrap'
     }
 })
 
