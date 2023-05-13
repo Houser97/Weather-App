@@ -4,10 +4,10 @@ import WeatherCard from './src/components/WeatherCard';
 //import backgroundBlue from './src/Assets/Background/Bg2.jpg'
 import backgroundBlue from './src/Assets/Background/pint6.jpg'
 import { useEffect, useState } from 'react';
-import DataCard from './src/components/DataCard';
 import Forecast from './src/components/Forecast';
 import Filter from './src/components/Filter';
 import { fetchWeatherData } from './src/Assets/apiFunctions';
+import ExtraData from './src/components/ExtraData';
 
 export default function App() {
 
@@ -48,13 +48,7 @@ export default function App() {
           description={weatherData.current.description} 
           date = {weatherData.current.date}
           icon = {weatherData.current.weather} />
-          <View style={styles.appContainerData}>
-            <DataCard value={weatherData.current.feels_like} icon={'feels_like'} variable={'Feels like'} /> 
-            <DataCard value={weatherData.current.humidity} icon={'humidity'} variable={'Humidity'} /> 
-            <DataCard value={weatherData.current.pressure} icon={'pressure'} variable={'Pressure'} /> 
-            <DataCard value={weatherData.current.wind} icon={'wind'} variable={'Wind speed'} /> 
-            {/*<DataCard value={weatherData.current.visibility} icon={'visibility'} variable={'Visibility'} />*/}
-          </View>
+          <ExtraData weatherData={weatherData} />
           <Filter filter={filter} setFilter={setFilter} />
           {
             isLoadingData ? <ActivityIndicator size={100} color='white' style={{marginTop:50}}/> :
@@ -89,16 +83,6 @@ const styles = StyleSheet.create({
     top:0,
     left:0,
     zIndex: -10
-  },
-  appContainerData: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    marginTop: 20,
-    rowGap: 30,
-    columnGap:20,
-    width: '100%',
-    justifyContent: 'center',
-    alignItems: 'center'
   },
   scroll: {
     width:'100%'
