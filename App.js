@@ -42,13 +42,8 @@ export default function App() {
       <ScrollView style={styles.scroll}>
         <View style={styles.appContainer}>
           <Search setCity={setCity} isLoading={isLoading} setIsLoading={setIsLoading} />
-          <WeatherCard 
-          temperature={weatherData.current.temperature} 
-          city={weatherData.current.city} 
-          description={weatherData.current.description} 
-          date = {weatherData.current.date}
-          icon = {weatherData.current.weather} />
-          <ExtraData weatherData={weatherData} />
+          <WeatherCard {...weatherData.current} />
+          <ExtraData {...weatherData.current} />
           <Filter filter={filter} setFilter={setFilter} />
           {
             isLoadingData ? <ActivityIndicator size={100} color='white' style={{marginTop:50}}/> :

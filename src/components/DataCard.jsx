@@ -15,8 +15,8 @@ const DataCard = ({value, icon, variable}) => {
 
 const styles = StyleSheet.create({
   DataCard: {
-    width: 120,
-    height: 120,
+    width: 160,
+    height: 130,
     borderRadius: 20,
     alignItems: 'center',
     justifyContent: 'space-around',
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
   cardBackground: {
       width: '100%',
       height: '100%',
-      opacity: 0.08,
+      opacity: 0.1,
       backgroundColor: TEXT_COLOR,
       position: 'absolute',
       borderRadius: 20,
@@ -34,12 +34,12 @@ const styles = StyleSheet.create({
       left: 0
   },
   value: {
-      fontSize: 16,
+      fontSize: 18,
       color: TEXT_COLOR
   },
   variable: {
       color: TEXT_COLOR,
-      fontSize: 10,
+      fontSize: 13,
       fontWeight: 'bold'
   },
 })
