@@ -1,16 +1,20 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native';
-import { weatherIconsSmall, TEXT_COLOR } from '../Assets/constants'
+import { weatherIconsSmall, TEXT_COLOR, MistCategorySmall } from '../Assets/constants'
 
-const ForecastCard = ({day, temp, feels_like, icon}) => {
+const ForecastCard = ({day, temp, feels_like, icon, date, dayHourly}) => {
   return (
     <View style={styles.forecastContainer}>
-        <Text style={styles.day}>{day}</Text>
+        <View style={styles.dayDate}>
+            <Text style={styles.day}>{day}</Text>
+            <Text style={styles.date}>{date}</Text>
+            {dayHourly && <Text style={styles.dayHourly}>{dayHourly}</Text>}
+        </View>
         <View style = {styles.temperature}>
             <Text style = {styles.wheaterNumber}>{temp}</Text>
             <Text style = {styles.celsius}>°C</Text>
         </View>
-        {weatherIconsSmall[icon]}
+        {weatherIconsSmall[icon] ? weatherIconsSmall[icon] : MistCategorySmall}
     </View>
   )
 }
@@ -33,6 +37,7 @@ const styles = StyleSheet.create({
     temperature: {
         flexDirection: 'row',
         position: 'relative',
+        width: 80, //Se establece para que la data esté alineada.
     },
     celsius: {
         color: TEXT_COLOR,
@@ -45,6 +50,17 @@ const styles = StyleSheet.create({
         color: TEXT_COLOR,
         fontSize: 18,
         width: 130
+    },
+    dayDate:{
+        flexDirection: 'column'
+    },
+    date:{
+        fontSize:12,
+        color: TEXT_COLOR
+    },
+    dayHourly:{
+        fontSize:10,
+        color: TEXT_COLOR
     }
 })
 
