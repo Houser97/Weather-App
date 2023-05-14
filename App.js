@@ -16,6 +16,7 @@ export default function App() {
   const [filterDailyData, setFilterDailyData] = useState('set1')
   const [isLoading, setIsLoading] = useState(false) //Loading para componente Search
   const [isLoadingData, setIsLoadingData] = useState(true) //Loading para predicciones.
+  const [cityError, setCityError] = useState(false)
 
   useEffect(() => {
     if(weatherData.hasData){
@@ -29,7 +30,14 @@ export default function App() {
     if(city === '') return undefined;
     const handleCityChange = async () => {
       const weatherData = await fetchWeatherData(city)
-      setWeatherData(weatherData)
+      if(weatherData){ 
+        setWeatherData(weatherData)
+        setCityError(false)
+      } else {
+        setCityError(true)
+        setIsLoadingData(false)
+        setIsLoading(false)
+      }
     }
 
     handleCityChange()
@@ -50,7 +58,7 @@ export default function App() {
       <Image source={backgroundBlue} style={styles.bgImage}></Image>
       <ScrollView style={styles.scroll}>
         <View style={styles.appContainer}>
-          <Search setCity={setCity} isLoading={isLoading} setIsLoading={setIsLoading} />
+          <Search setCity={setCity} isLoading={isLoading} setIsLoading={setIsLoading} cityError={cityError} />
           <WeatherCard {...weatherData.current} />
           <ExtraData {...weatherData.current} />
           <Filter filter={filter} setFilter={setFilter} filterDailyData={filterDailyData} setFilterDailyData={setFilterDailyData}  />

@@ -3,8 +3,10 @@ import Constants from 'expo-constants'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { useState } from 'react'
 import { TouchableOpacity } from 'react-native'
+import CityErrorMsg from './CityErrorMsg'
+import { ERROR_COLOR } from '../Assets/constants'
 
-const Search = ({setCity, isLoading, setIsLoading}) => {
+const Search = ({setCity, isLoading, setIsLoading, cityError}) => {
 
   const [localCity, setLocalCity] = useState('')
 
@@ -17,7 +19,7 @@ const Search = ({setCity, isLoading, setIsLoading}) => {
     if(!isLoading) {
       return(
         <TouchableOpacity onPress={() => handlePress(localCity)}>
-          <Icon name='search' size={28} color='white'/>
+          <Icon name='search' size={28} color={cityError ? ERROR_COLOR : 'white'}/>
         </TouchableOpacity>
       )
     }
@@ -27,14 +29,15 @@ const Search = ({setCity, isLoading, setIsLoading}) => {
   }
  
   return (
-    <View style = {styles.search}>
+    <View style = {[styles.search, cityError && styles.error]}>
         <TextInput 
          value = {localCity}
          onChangeText = {(city) => setLocalCity(city)}
          placeholder = {'Search city'}
          placeholderTextColor="white" 
-         style = {styles.input}></TextInput>
+         style = {[styles.input, cityError && styles.txtError]}></TextInput>
          {SearchButton()}
+         {cityError && <CityErrorMsg />}
     </View>
   )
 }
@@ -49,11 +52,18 @@ const styles = StyleSheet.create({
         borderColor: 'white',
         borderBottomWidth: 2,
         flexDirection: 'row',
+        position: 'relative'
     },
     input: {
         flex: 1,
         paddingRight: 5,
         color:'white'
+    },
+    error: {
+      borderColor: ERROR_COLOR,
+    },
+    txtError: {
+      color: ERROR_COLOR
     }
 })
 
