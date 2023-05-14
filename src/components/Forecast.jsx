@@ -5,12 +5,14 @@ import ForecastCard from './ForecastCard';
 const Forecast = ({forecastData}) => {
   return (
     <View style={styles.forecastContainer}>
-        {forecastData.map((forecast, index) => {
+        {forecastData.map((forecast) => {
             return(
-                <ForecastCard key={`forecast-${index}`}
+                <ForecastCard key={forecast.type === 'daily' ? `forecast-${forecast.dt}-${forecast.city}` : `hourly-${forecast.dt}-${forecast.city}`}
                  temp={forecast.temperature} 
                  icon={forecast.weather}
-                 day={forecast.day ? forecast.day.split(',')[0] : forecast.hour}/>
+                 day={forecast.type === 'daily' ? forecast.day.split(',')[0] : forecast.hour}
+                 date={forecast.date}
+                 dayHourly={forecast.type === 'hourly' && forecast.day.split(',')[0]}/>
             )
         })}
     </View>
