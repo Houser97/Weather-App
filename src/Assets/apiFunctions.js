@@ -19,10 +19,12 @@ const getHourFromDT = (dt) => {
 const getCityCoords = async (city) => {
     const coordsDataRaw = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=a17d8aca84846ee500b328a8df181e45`, { mode: "cors" })
     const coordsData = await coordsDataRaw.json()
-    return {lat: coordsData[0].lat, lon: coordsData[0].lon}
+    return coordsData.length ? {lat: coordsData[0].lat, lon: coordsData[0].lon} : false
 }
 
 export const fetchWeatherData = async (city) => {
+    const coords = await getCityCoords(city)
+    if(!coords) return false 
     const {lat, lon} = await getCityCoords(city)
     const weatherDataRaw = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=alerts&units=metric&appid=a17d8aca84846ee500b328a8df181e45`, { mode: "cors" })
     const {current, daily, hourly} = await weatherDataRaw.json()
@@ -35,7 +37,7 @@ export const fetchWeatherData = async (city) => {
         humidity: humidity,
         pressure: pressure,
         temperature: temp,
-        weather: weather[0].main,
+        icon: weather[0].main,
         lat,
         lon,
         city,
