@@ -7,6 +7,7 @@ import Forecast from './src/components/Forecast';
 import Filter from './src/components/Filter';
 import { fetchWeatherData } from './src/Assets/apiFunctions';
 import ExtraData from './src/components/ExtraData';
+import UnitFilter from './src/components/UnitFilter';
 
 export default function App() {
 
@@ -17,6 +18,7 @@ export default function App() {
   const [isLoading, setIsLoading] = useState(false) //Loading para componente Search
   const [isLoadingData, setIsLoadingData] = useState(true) //Loading para predicciones.
   const [cityError, setCityError] = useState(false)
+  const [tempUnit, setTempUnit] = useState('metric')
 
   useEffect(() => {
     //Este useEffect ayuda con la pantalla de carga apenas se renderiza por primera vez la app.
@@ -29,8 +31,9 @@ export default function App() {
 
   useEffect(() => {
     if(city === '') return undefined;
+
     const handleCityChange = async () => {
-      const weatherData = await fetchWeatherData(city)
+      const weatherData = await fetchWeatherData(city, tempUnit)
       if(weatherData){ 
         setWeatherData(weatherData)
         setCityError(false)
@@ -40,9 +43,8 @@ export default function App() {
         setIsLoading(false)
       }
     }
-
     handleCityChange()
-  }, [city])
+  }, [city, tempUnit])
 
   const forecastSection = () => {
     return(
@@ -70,8 +72,9 @@ export default function App() {
           {!isLoadingData && 
           <>
           <Search setCity={setCity} isLoading={isLoading} setIsLoading={setIsLoading} cityError={cityError} />
-          <WeatherCard {...weatherData.current} />
-          <ExtraData {...weatherData.current} />
+          <UnitFilter setUnits={setTempUnit} units={tempUnit} />
+          <WeatherCard {...weatherData.current} unit={tempUnit} />
+          <ExtraData {...weatherData.current} unit={tempUnit}  />
           <Filter filter={filter} setFilter={setFilter} filterDailyData={filterDailyData} setFilterDailyData={setFilterDailyData}  />
           {forecastSection()}
           </>
