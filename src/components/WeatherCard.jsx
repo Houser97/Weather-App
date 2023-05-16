@@ -2,14 +2,14 @@ import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import { MistCategory, TEXT_COLOR, weatherIcons } from '../Assets/constants'
 
-const WeatherCard = ({temperature, description, city, date, icon}) => {
+const WeatherCard = ({temperature, description, city, date, icon, unit}) => {
 
   return (  
     <View style = {styles.weatherCard}>
         <View style = {styles.cardBackground}></View>
         <View style = {styles.temperature}>
             <Text style = {styles.wheaterNumber}>{temperature}</Text>
-            <Text style = {styles.celsius}>°C</Text>
+            <Text style = {styles.celsius}>{unit === 'metric' ? '°C':'°F'}</Text>
         </View>
         {weatherIcons[icon] ? weatherIcons[icon] : MistCategory}
         <Text style = {styles.today}>{description}</Text>
