@@ -19,6 +19,7 @@ export default function App() {
   const [cityError, setCityError] = useState(false)
 
   useEffect(() => {
+    //Este useEffect ayuda con la pantalla de carga apenas se renderiza por primera vez la app.
     if(weatherData.hasData){
       setIsLoadingData(false)
       setIsLoading(false)
@@ -45,7 +46,6 @@ export default function App() {
 
   const forecastSection = () => {
     return(
-        isLoadingData ? <ActivityIndicator size={100} color='white' style={{marginTop:50}}/> :
         filter === 'daily' ? 
           (weatherData.forecast).length !== 0 && <Forecast forecastData={weatherData.forecast}/>
           :
@@ -53,16 +53,29 @@ export default function App() {
     )
   }
 
+  const loadingSection = () => {
+    return(
+      <View style={styles.whiteOverlay}>
+        <ActivityIndicator size={100} color={'white'} />
+      </View >
+    )
+  }
+
   return (
     <SafeAreaView style={styles.mainView}>
+      {isLoadingData && loadingSection()}
       <Image source={backgroundBlue} style={styles.bgImage}></Image>
       <ScrollView style={styles.scroll}>
         <View style={styles.appContainer}>
+          {!isLoadingData && 
+          <>
           <Search setCity={setCity} isLoading={isLoading} setIsLoading={setIsLoading} cityError={cityError} />
           <WeatherCard {...weatherData.current} />
           <ExtraData {...weatherData.current} />
           <Filter filter={filter} setFilter={setFilter} filterDailyData={filterDailyData} setFilterDailyData={setFilterDailyData}  />
           {forecastSection()}
+          </>
+          }
         </View>  
       </ScrollView>
     </SafeAreaView>
@@ -72,15 +85,16 @@ export default function App() {
 const styles = StyleSheet.create({
   mainView: {
     flex: 1,
-    backgroundColor: '#212120',
     alignItems: 'center',
+    justifyContent: 'center',
+    position:'relative'
   },
   appContainer:{
     alignItems: 'center',
     paddingHorizontal: 20,
     justifyContent: 'center',
     alignContent: 'center',
-    width: '100%'
+    width: '100%',
   },
   bgImage: {
     width: '100%',
@@ -91,6 +105,17 @@ const styles = StyleSheet.create({
     zIndex: -10
   },
   scroll: {
-    width:'100%'
-  }
+    width:'100%',
+    flex: 1,
+    minHeight: '100%',
+  },
+  whiteOverlay: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    alignItems: 'center',
+    justifyContent: 'center'      
+ }
 })
