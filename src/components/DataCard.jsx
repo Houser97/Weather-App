@@ -2,12 +2,17 @@ import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import { iconsUnits, TEXT_COLOR } from '../Assets/constants'
 
-const DataCard = ({value, icon, variable}) => {
+const DataCard = ({value, icon, variable, unit}) => {
+
+  const unitVariable = typeof iconsUnits[icon].unit === 'object' 
+                       ? iconsUnits[icon].unit[unit] 
+                       : iconsUnits[icon].unit
+
   return (
     <View style = {styles.DataCard}>
       <View style = {styles.cardBackground}></View>
       {iconsUnits[icon].icon}
-      <Text style = {styles.value}>{value} {iconsUnits[icon].unit}</Text>
+      <Text style = {styles.value}>{value} {unitVariable}</Text>
       <Text style = {styles.variable}>{variable}</Text>
     </View>
   )

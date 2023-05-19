@@ -48,7 +48,7 @@ export const iconsUnits = {
   },
   wind: {
     icon: <Fontisto name="wind" size={30} color={TEXT_COLOR} />,
-    unit: 'km/h'
+    unit: {metric:'km/h', imperial: 'mph'}
   },
   visibility: {
     icon: <MaterialIcons name="visibility" size={30} color={TEXT_COLOR} />,
@@ -56,6 +56,6 @@ export const iconsUnits = {
   },
   feels_like: {
     icon: <FontAwesome name="thermometer-2" size={30} color={ICON_COLOR} />,
-    unit: '°C'
+    unit: {metric:'°C', imperial: '°F'}
   }
 }
