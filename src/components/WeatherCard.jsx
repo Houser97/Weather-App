@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
         width: '100%',
         height: 250,
         borderRadius: 20,
-        marginTop: 40,
+        marginTop: 20,
         alignItems: 'center',
         justifyContent: 'space-around',
         overflow: 'hidden',

@@ -19,15 +19,13 @@ const UnitFilter = ({setUnits, units}) => {
 
 const styles = StyleSheet.create({
     mainContainer: {
-        width: '100%',
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'center',
-        marginTop: 40,
+        marginTop: 20,
         columnGap: 10
     },
     unitOption: {
-        fontSize: 50,
+        fontSize: 40,
         color: TEXT_COLOR,
         opacity: 0.5
     },
