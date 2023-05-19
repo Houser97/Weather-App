@@ -12,7 +12,10 @@ const Search = ({setCity, isLoading, setIsLoading, cityError}) => {
 
   const handlePress = (localCity) => {
     setIsLoading(true)
-    setCity(localCity)
+    const city = localCity      
+      .replace(/(,\s+)/g, ',') // Quitar espacios después de una coma.
+      .replace(/(\s+,)/g, ',') // Quitar espacioes antes de una coma.
+    setCity(city)
   }
 
   const SearchButton = () => {
