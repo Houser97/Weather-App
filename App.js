@@ -18,7 +18,8 @@ export default function App() {
   const [isLoading, setIsLoading] = useState(false) //Loading para componente Search
   const [isLoadingData, setIsLoadingData] = useState(true) //Loading para predicciones.
   const [cityError, setCityError] = useState(false)
-  const [tempUnit, setTempUnit] = useState('metric')
+  const [tempUnit, setTempUnit] = useState('metric') //El valor se pasa al objeto creado en la API en lugar de pasarlo
+  //directo a los componente para garantizar que la aplicación se renderiza al mismo tiempo y no las unidades antes que el valor.
 
   useEffect(() => {
     //Este useEffect ayuda con la pantalla de carga apenas se renderiza por primera vez la app.
@@ -73,8 +74,8 @@ export default function App() {
           <>
           <Search setCity={setCity} isLoading={isLoading} setIsLoading={setIsLoading} cityError={cityError} />
           <UnitFilter setUnits={setTempUnit} units={tempUnit} />
-          <WeatherCard {...weatherData.current} unit={tempUnit} />
-          <ExtraData {...weatherData.current} unit={tempUnit}  />
+          <WeatherCard {...weatherData.current} />
+          <ExtraData {...weatherData.current}  />
           <Filter filter={filter} setFilter={setFilter} filterDailyData={filterDailyData} setFilterDailyData={setFilterDailyData}  />
           {forecastSection()}
           </>

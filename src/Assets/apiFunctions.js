@@ -22,11 +22,11 @@ const getCityCoords = async (city) => {
     return coordsData.length ? {lat: coordsData[0].lat, lon: coordsData[0].lon} : false
 }
 
-export const fetchWeatherData = async (city) => {
+export const fetchWeatherData = async (city, units = 'metric') => {
     const coords = await getCityCoords(city)
     if(!coords) return false 
     const {lat, lon} = await getCityCoords(city)
-    const weatherDataRaw = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=alerts&units=metric&appid=a17d8aca84846ee500b328a8df181e45`, { mode: "cors" })
+    const weatherDataRaw = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=alerts&units=${units}&appid=a17d8aca84846ee500b328a8df181e45`, { mode: "cors" })
     const {current, daily, hourly} = await weatherDataRaw.json()
     const {humidity, pressure, temp, visibility, wind_speed, weather, feels_like, dt} = current
     const {day, date} = getDateFromDT(dt)
@@ -45,7 +45,9 @@ export const fetchWeatherData = async (city) => {
         wind: wind_speed,
         visibility,
         date,
-        day
+        day,
+        units //Se agrega el valor del estado unitTemp para garantizar que todo se renderice al mismo
+        // tiempo en lugar de que las unidades primero y luego el valor dado por la API.
     }
 
     const forecastData = []
@@ -61,7 +63,8 @@ export const fetchWeatherData = async (city) => {
         feels_like: forecast.feels_like.day,
         weather: forecast.weather[0].main,
         type: 'daily',
-        city //Se agrega para mejorar KEY al momento de renderizar ForecastCard en Forecast.
+        city, //Se agrega para mejorar KEY al momento de renderizar ForecastCard en Forecast.
+        units    
         }
         forecastData.push(data)
     }
@@ -80,6 +83,7 @@ export const fetchWeatherData = async (city) => {
         temperature: forecast.temp,
         feels_like: forecast.feels_like,
         weather: forecast.weather[0].main,
+        units,
         type: 'hourly'
         }
 
