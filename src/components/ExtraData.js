@@ -2,13 +2,13 @@ import React from 'react'
 import { StyleSheet, View } from 'react-native'
 import DataCard from './DataCard'
 
-const ExtraData = ({feels_like, humidity, pressure, wind}) => {
+const ExtraData = ({feels_like, humidity, pressure, wind, units}) => {
   return (
     <View style={styles.appContainerData}>
-        <DataCard value={feels_like} icon={'feels_like'} variable={'Feels like'} /> 
+        <DataCard value={feels_like} icon={'feels_like'} variable={'Feels like'} unit={units} /> 
         <DataCard value={humidity} icon={'humidity'} variable={'Humidity'} /> 
         <DataCard value={pressure} icon={'pressure'} variable={'Pressure'} /> 
-        <DataCard value={wind} icon={'wind'} variable={'Wind speed'} /> 
+        <DataCard value={wind} icon={'wind'} variable={'Wind speed'} unit={units} /> 
     </View>
   )
 }

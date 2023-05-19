@@ -12,7 +12,8 @@ const Forecast = ({forecastData}) => {
                  icon={forecast.weather}
                  day={forecast.type === 'daily' ? forecast.day.split(',')[0] : forecast.hour}
                  date={forecast.date}
-                 dayHourly={forecast.type === 'hourly' && forecast.day.split(',')[0]}/>
+                 dayHourly={forecast.type === 'hourly' && forecast.day.split(',')[0]}
+                 units = {forecast.units}/>
             )
         })}
     </View>
@@ -22,7 +23,8 @@ const Forecast = ({forecastData}) => {
 const styles = StyleSheet.create({
     forecastContainer:{
         width:'100%',
-        flexDirection:'column'
+        flexDirection:'column',
+        marginBottom: 20
     }
 })
 

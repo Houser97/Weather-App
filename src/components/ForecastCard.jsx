@@ -2,7 +2,12 @@ import React from 'react'
 import { StyleSheet, Text, View } from 'react-native';
 import { weatherIconsSmall, TEXT_COLOR, MistCategorySmall } from '../Assets/constants'
 
-const ForecastCard = ({day, temp, feels_like, icon, date, dayHourly}) => {
+const ForecastCard = ({day, temp, units, icon, date, dayHourly}) => {
+
+    const unitVariable = units === 'metric' 
+                         ? '°C'
+                         : '°F'
+
   return (
     <View style={styles.forecastContainer}>
         <View style={styles.dayDate}>
@@ -12,7 +17,7 @@ const ForecastCard = ({day, temp, feels_like, icon, date, dayHourly}) => {
         </View>
         <View style = {styles.temperature}>
             <Text style = {styles.wheaterNumber}>{temp}</Text>
-            <Text style = {styles.celsius}>°C</Text>
+            <Text style = {styles.celsius}>{unitVariable}</Text>
         </View>
         {weatherIconsSmall[icon] ? weatherIconsSmall[icon] : MistCategorySmall}
     </View>
