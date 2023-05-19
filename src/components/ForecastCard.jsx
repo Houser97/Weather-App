@@ -41,6 +41,7 @@ const styles = StyleSheet.create({
     },
     temperature: {
         flexDirection: 'row',
+        justifyContent: 'flex-end',
         position: 'relative',
         width: 80, //Se establece para que la data esté alineada.
     },
@@ -54,7 +55,7 @@ const styles = StyleSheet.create({
     day:{
         color: TEXT_COLOR,
         fontSize: 18,
-        width: 130
+        width: 130,
     },
     dayDate:{
         flexDirection: 'column'
