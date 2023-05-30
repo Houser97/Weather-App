@@ -1,0 +1,1 @@
+declare module '*.jpg'; //Se usa para indicar que las imágenes se cargan sin ningún error
