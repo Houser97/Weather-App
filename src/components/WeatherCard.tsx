@@ -2,7 +2,16 @@ import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import { MistCategory, TEXT_COLOR, weatherIcons } from '../Assets/constants'
 
-const WeatherCard = ({temperature, description, city, date, icon, units}) => {
+type weatherCardProps = {
+    temperature: number,
+    description: string,
+    city: string,
+    date: string,
+    icon: string,
+    units: string
+}
+
+const WeatherCard = ({temperature, description, city, date, icon, units}: weatherCardProps) => {
 
   return (  
     <View style = {styles.weatherCard}>

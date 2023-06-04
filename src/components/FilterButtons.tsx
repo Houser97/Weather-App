@@ -1,8 +1,13 @@
-import React from 'react'
+import React, { Dispatch, SetStateAction } from 'react'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { filterOptions, TEXT_COLOR } from '../Assets/constants';
 
-const FilterButtons = ({filter, setFilter}) => {
+type FilterButtonsProps = {
+    filter: string,
+    setFilter: Dispatch<SetStateAction<string>>
+}
+
+const FilterButtons = ({filter, setFilter}: FilterButtonsProps) => {
   return (
     <View style={styles.container}>
     {filterOptions.map((optionFilter, index) => {

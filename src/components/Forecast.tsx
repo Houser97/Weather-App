@@ -1,8 +1,13 @@
 import React from 'react'
 import { StyleSheet, View } from 'react-native';
 import ForecastCard from './ForecastCard';
+import { forecastType } from '../../App';
 
-const Forecast = ({forecastData}) => {
+type ForecastProp = {
+    forecastData: forecastType[]
+}
+
+const Forecast = ({forecastData}: ForecastProp) => {
   return (
     <View style={styles.forecastContainer}>
         {forecastData.map((forecast) => {

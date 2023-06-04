@@ -1,9 +1,16 @@
-import React from 'react'
+import React, { Dispatch, SetStateAction } from 'react'
 import { StyleSheet, View } from 'react-native';
 import DotsFilter from './DotsFilter';
 import FilterButtons from './FilterButtons';
 
-const Filter = ({filter, setFilter, filterDailyData, setFilterDailyData}) => {
+type FilterProps = {
+  filter: string,
+  setFilter: Dispatch<SetStateAction<string>>,
+  filterDailyData: string,
+  setFilterDailyData: Dispatch<SetStateAction<string>>
+}
+
+const Filter = ({filter, setFilter, filterDailyData, setFilterDailyData}: FilterProps) => {
   return (
     <View style={styles.filterContainer}>
         <FilterButtons filter={filter} setFilter={setFilter} />

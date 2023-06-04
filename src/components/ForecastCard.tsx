@@ -2,7 +2,16 @@ import React from 'react'
 import { StyleSheet, Text, View } from 'react-native';
 import { weatherIconsSmall, TEXT_COLOR, MistCategorySmall } from '../Assets/constants'
 
-const ForecastCard = ({day, temp, units, icon, date, dayHourly}) => {
+type forecastcardProps = {
+    day: string,
+    date: string,
+    temp: number,
+    units: string,  
+    icon: string,
+    dayHourly: string | boolean
+  }
+
+const ForecastCard = ({day, temp, units, icon, date, dayHourly}: forecastcardProps) => {
 
     const unitVariable = units === 'metric' 
                          ? '°C'

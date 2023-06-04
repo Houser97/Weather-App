@@ -1,16 +1,23 @@
 import { View, TextInput, StyleSheet, ActivityIndicator } from 'react-native'
 import Constants from 'expo-constants'
 import Icon from 'react-native-vector-icons/Ionicons'
-import { useState } from 'react'
+import { Dispatch, SetStateAction, useState } from 'react'
 import { TouchableOpacity } from 'react-native'
 import CityErrorMsg from './CityErrorMsg'
 import { ERROR_COLOR } from '../Assets/constants'
 
-const Search = ({setCity, isLoading, setIsLoading, cityError}) => {
+type SearchProps = {
+  setCity: Dispatch<SetStateAction<string>>,
+  isLoading: boolean,
+  setIsLoading: Dispatch<SetStateAction<boolean>>,
+  cityError: boolean
+}
+
+const Search = ({setCity, isLoading, setIsLoading, cityError}: SearchProps) => {
 
   const [localCity, setLocalCity] = useState('')
 
-  const handlePress = (localCity) => {
+  const handlePress = (localCity: string) => {
     setIsLoading(true)
     const city = localCity      
       .replace(/(,\s+)/g, ',') // Quitar espacios después de una coma.

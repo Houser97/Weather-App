@@ -27,7 +27,8 @@ interface currentType {
   units: string
 }
 
-interface forecastType {
+//Se exporta este tipo para definirlo en la Prop de Forecast.tsx
+export interface forecastType {
   dt: number,
   day: string,
   date: string,
@@ -36,7 +37,8 @@ interface forecastType {
   weather: string,
   type: string,
   city: string, //Se agrega para mejorar KEY al momento de renderizar ForecastCard en Forecast.
-  units: string    
+  units: string,
+  hour?: string   
 }
 
 interface hourlyType {
