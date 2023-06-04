@@ -1,7 +1,7 @@
 import { StyleSheet, View, Image, SafeAreaView, ScrollView, ActivityIndicator } from 'react-native';
 import Search from './src/components/Search';
 import WeatherCard from './src/components/WeatherCard';
-import backgroundBlue from './src/Assets/Background/Bg2.jpg'
+import backgroundBlue from './src/Assets/Background/Bg3.jpg'
 import { useEffect, useState } from 'react';
 import Forecast from './src/components/Forecast';
 import Filter from './src/components/Filter';
