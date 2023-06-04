@@ -2,7 +2,14 @@ import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import { iconsUnits, TEXT_COLOR } from '../Assets/constants'
 
-const DataCard = ({value, icon, variable, unit}) => {
+type DatacardProps = {
+  value: number,
+  icon: string,
+  variable: string,
+  unit: string
+}
+
+const DataCard = ({value, icon, variable, unit}: DatacardProps) => {
 
   const unitVariable = typeof iconsUnits[icon].unit === 'object' 
                        ? iconsUnits[icon].unit[unit] 

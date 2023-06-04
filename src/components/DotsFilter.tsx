@@ -1,9 +1,14 @@
-import React from 'react'
+import React, {Dispatch, SetStateAction } from 'react'
 import { StyleSheet, TouchableOpacity, View, Text } from 'react-native'
 
 const WeatherSets = ['set1', 'set2', 'set3', 'set4']
 
-const DotsFilter = ({filterDailyData, setFilterDailyData}) => {
+type DotsFilterProps = {
+    filterDailyData: string,
+    setFilterDailyData: Dispatch<SetStateAction<string>>
+}
+
+const DotsFilter = ({filterDailyData, setFilterDailyData}: DotsFilterProps) => {
   return (
     <View style={styles.container}>
     {
