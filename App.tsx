@@ -1,7 +1,7 @@
 import { StyleSheet, View, Image, SafeAreaView, ScrollView, ActivityIndicator } from 'react-native';
 import Search from './src/components/Search';
 import WeatherCard from './src/components/WeatherCard';
-import backgroundBlue from './src/Assets/Background/pint6.jpg'
+import backgroundBlue from './src/Assets/Background/Bg2.jpg'
 import { useEffect, useState } from 'react';
 import Forecast from './src/components/Forecast';
 import Filter from './src/components/Filter';
@@ -132,6 +132,7 @@ export default function App() {
     <SafeAreaView style={styles.mainView}>
       {isLoadingData && loadingSection()}
       <Image source={backgroundBlue} style={styles.bgImage}></Image>
+      <View style={styles.bgOpacity}></View>
       <ScrollView style={styles.scroll}>
         <View style={styles.appContainer}>
           {!isLoadingData && 
@@ -185,5 +186,12 @@ const styles = StyleSheet.create({
     bottom: 0,
     alignItems: 'center',
     justifyContent: 'center'      
+ },
+ bgOpacity: {
+  width: '100%',
+  height: '100%',
+  opacity: 0.3,
+  backgroundColor: 'black',
+  position: 'absolute'
  }
 })
