@@ -35,7 +35,6 @@ export const fetchWeatherData = async (city, units = 'metric') => {
     const {current, daily, hourly} = await weatherDataRaw.json()
     const {humidity, pressure, temp, visibility, wind_speed, weather, feels_like, dt} = current
     const {day, date} = getDateFromDT(dt)
-
     const currentData = {
         dt,
         description: capitalizeFirstLetter(weather[0].description),
