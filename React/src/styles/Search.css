@@ -1,0 +1,35 @@
+.Search-form {
+    border-radius: 20px;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    border: 2px solid gray;
+}
+
+.Search-form input {
+    color: black;
+    border: none;
+    font-size: 18px;
+}
+
+.Search-form img {
+    width: 22px;
+    height: auto;
+}
+
+.Search-form button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.Search-form span {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.hide-btn{
+    pointer-events: none;
+    opacity: 0;
+}
