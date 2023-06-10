@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300&family=Secular+One&display=swap');
+
+.weather-data-container .icon {
+    width: 300px;
+    height: auto;
+}
+
+.temperature-container{
+    display: flex;
+    align-items: flex-start;
+    position: relative;
+    font-family: 'Lato', sans-serif;
+    font-size: 100px;
+}
+
+.weather-data-container .temperature-container .unit {
+    position: relative;
+    font-size: 56px;
+    top: 10px;
+    left: 10px;
+}
+
+.day-hour-container {
+    display: flex;
+    column-gap: 10px;
+    font-size: 28px;
+    margin-top: 25px;
+}
+
+.day-hour-container .hour {
+    color: gray;
+}
+
+.extra-data-container{
+    margin-top: 50px;
+    padding-top: 50px;
+    border-top: solid 1px gray;
+    display: flex;
+    flex-flow: column;
+}
+
+.icon-extra-data{
+    width: 50px;
+    height: auto;
+}
+
+.description-icon{
+    display: flex;
+    align-items: center;
+    column-gap: 15px;
+}
+
+.city-img-container{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 40px;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.img-opacity{
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.place-img{
+    width: 100%;
+    height: auto;
+}
+
+.city{
+    position: absolute;
+    color: white;
+    font-size: 30px;
+}
