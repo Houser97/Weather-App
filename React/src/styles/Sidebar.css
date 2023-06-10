@@ -1,0 +1,9 @@
+.Sidebar-container{
+    min-height: 100%;
+    width: 400px;
+    background-color: white;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    padding: 50px;
+}
