@@ -1,0 +1,7 @@
+.Home-container{
+    background-color: rgb(241, 241, 241);
+    border-radius: 50px;
+    display: flex;
+    overflow: hidden;
+    width: 100%;
+}
