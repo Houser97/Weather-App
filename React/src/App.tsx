@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { createContext, useState } from 'react'
 import './App.css'
 import Home from './components/Home'
 interface currentType {
@@ -66,6 +66,8 @@ const currentInitialValue = {
   units: ''
 }
 
+export const weatherContext = createContext({})
+
 function App() {
 
   const [weatherData, setWeatherData] = useState<weatherDataType>({current: currentInitialValue, forecast: [], hourly: {}, hasData: false})
@@ -78,9 +80,13 @@ function App() {
   const [tempUnit, setTempUnit] = useState('metric') //El valor se pasa al objeto creado en la API en lugar de pasarlo
   //directo a los componente para garantizar que la aplicación se renderiza al mismo tiempo y no las unidades antes que el valor.
 
+  const value = {setWeatherData, weatherData, city, setCity}
+
   return (
     <div className='app'>
-      <Home/>
+      <weatherContext.Provider value = {value}>
+        <Home/>
+      </weatherContext.Provider>
     </div>
   )
 }
