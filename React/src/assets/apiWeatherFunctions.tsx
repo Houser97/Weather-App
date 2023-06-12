@@ -40,6 +40,11 @@ const getHourFromDT = (dt: number) => {
     return rawDate.toLocaleTimeString([], {hour: 'numeric', minute: 'numeric', hour12: true})
 }
 
+const getHourFromDT24 = (dt: number) => {
+    const rawDate = new Date(dt * 1000)
+    return rawDate.toLocaleTimeString([], {hour: 'numeric', minute: 'numeric', hour12: false})
+}
+
 const getCityCoords = async (city: string) => {
     const coordsDataRaw = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=a17d8aca84846ee500b328a8df181e45`, { mode: "cors" })
     const coordsData = await coordsDataRaw.json()
@@ -54,6 +59,7 @@ export const fetchWeatherData = async (city: string, units = 'metric') => {
     const {current, daily, hourly} = await weatherDataRaw.json()
     const {humidity, pressure, temp, visibility, wind_speed, weather, feels_like, dt} = current
     const {day, date} = getDateFromDT(dt)
+    const hour = getHourFromDT24(dt)
     const currentData = {
         dt,
         description: capitalizeFirstLetter(weather[0].description),
@@ -69,6 +75,7 @@ export const fetchWeatherData = async (city: string, units = 'metric') => {
         visibility,
         date,
         day,
+        hour,
         units //Se agrega el valor del estado unitTemp para garantizar que todo se renderice al mismo
         // tiempo en lugar de que las unidades primero y luego el valor dado por la API.
     }
