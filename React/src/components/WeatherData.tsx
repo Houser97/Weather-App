@@ -2,26 +2,37 @@ import { weatherIcons } from '../assets/weatherIcons'
 import '../styles/WeatherData.css'
 import test from '../assets/Puebla.jpg'
 import { weatherContext } from '../App'
-import { useContext } from 'react'
+import { useContext, useEffect, useState } from 'react'
 
 const WeatherData = () => {
 
+  const [icon, setIcon] = useState<string>('Clear')
   const {weatherData} = useContext(weatherContext)
+
+  useEffect(() => {
+    if(!weatherData.hasData) return undefined
+    const nightIcons = ['Haze', 'Clear']
+    if(!(weatherData.current.dt > weatherData.current.sunrise && weatherData.current.dt < weatherData.current.sunset) && nightIcons.includes(weatherData.current.icon)){
+      setIcon(weatherData.current.icon+'Night')
+    } else {
+      setIcon(weatherData.current.icon)
+    }
+  }, [weatherData.current.icon])
 
   return (
     <div className="weather-data-container">
-        <img src={weatherData.hasData ? weatherIcons[weatherData.current.icon] : 'Clear' } alt="sun" className='icon' />
+        <img src={weatherIcons[icon]} alt="sun" className='icon' />
         <div className="temperature-container">
           <span className='temperature'>{weatherData.hasData ? weatherData.current.temperature : 20}</span>
           <span className='unit'>°C</span>
         </div>
         <div className="day-hour-container">
             <span>{weatherData.hasData && weatherData.current.day},</span>
-            <span className='hour'>16:00</span>
+            <span className='hour'>{weatherData.hasData && weatherData.current.hour}</span>
         </div>
         <div className='extra-data-container'>
           <div className='description-icon'>
-            <img src={weatherData.hasData ? weatherIcons[weatherData.current.icon] : 'Clear'} alt="icon" className='icon-extra-data' />
+            <img src={weatherIcons[icon]} alt="icon" className='icon-extra-data' />
             <span>{weatherData.hasData && weatherData.current.description}</span>
           </div>
           <div className='description-icon'>
