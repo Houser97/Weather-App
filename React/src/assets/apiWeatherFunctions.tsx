@@ -42,7 +42,7 @@ const getHourFromDT = (dt: number) => {
 
 const getHourFromDT24 = (dt: number, timezone: string) => {
     const rawDate = new Date(dt * 1000)
-    return rawDate.toLocaleTimeString([], {hour: 'numeric', minute: 'numeric', hour12: false, timeZone: timezone})
+    return rawDate.toLocaleTimeString([], {hour: 'numeric', minute: 'numeric', hourCycle: 'h23', timeZone: timezone})
 }
 
 const getCityCoords = async (city: string) => {
