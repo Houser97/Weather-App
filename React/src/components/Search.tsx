@@ -1,12 +1,14 @@
-import { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import '../styles/Search.css'
-import searchIcon from '../assets/search.svg'
-import deleteIcon from '../assets/delete.svg'
+import searchIcon from '../assets/icons/general/search.svg'
+import deleteIcon from '../assets/icons/general/delete.svg'
+import { weatherContext } from '../App'
 
 const Search = () => {
 
     const [showDeleteBtn, setShowDeleteBtn] = useState(false)
-    const [city, setCity] = useState('')
+    const [localCity, setLocalCity] = useState('')
+    const {setCity} = useContext(weatherContext)
 
     const isCityEmpty = (city: string) => {
         const cityLength = city.length
@@ -15,17 +17,25 @@ const Search = () => {
     }
 
     const deleteCity = () => {
-        setCity('')
+        setLocalCity('')
         setShowDeleteBtn(false)
     }
 
     const updateCityValue = (city: string) => {
-        setCity(city)
+        setLocalCity(city)
         setShowDeleteBtn(isCityEmpty(city))
     }
 
+    const fetchWeatherData = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        const city = localCity      
+            .replace(/(,\s+)/g, ',') // Quitar espacios después de una coma.
+            .replace(/(\s+,)/g, ',') // Quitar espacioes antes de una coma.
+        setCity(city)
+    }
+
   return (
-    <form className='Search-form'>
+    <form className='Search-form' onSubmit={(e) => fetchWeatherData(e)}>
         <button>
             <img src={searchIcon}></img>
         </button>
@@ -35,7 +45,7 @@ const Search = () => {
          name='search' 
          placeholder='Search for places...' 
          onChange={e => updateCityValue(e.target.value)}
-         value={city}>
+         value={localCity}>
         </input>
 
         <span 
