@@ -1,14 +1,17 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import '../styles/Search.css'
 import searchIcon from '../assets/icons/general/search.svg'
 import deleteIcon from '../assets/icons/general/delete.svg'
-import { weatherContext } from '../App'
+import { useDispatch } from 'react-redux'
+import { AppDispatch } from '../store'
+import { fetchWeatherDataRedux } from '../redux/slices/weather'
 
 const Search = () => {
 
+    const dispatch = useDispatch<AppDispatch>()
+
     const [showDeleteBtn, setShowDeleteBtn] = useState(false)
-    const [localCity, setLocalCity] = useState('')
-    const {setCity} = useContext(weatherContext)
+    const [city, setCity] = useState('Puebla')
 
     const isCityEmpty = (city: string) => {
         const cityLength = city.length
@@ -17,21 +20,22 @@ const Search = () => {
     }
 
     const deleteCity = () => {
-        setLocalCity('')
+        setCity('')
         setShowDeleteBtn(false)
     }
 
     const updateCityValue = (city: string) => {
-        setLocalCity(city)
+        setCity(city)
         setShowDeleteBtn(isCityEmpty(city))
     }
 
     const fetchWeatherData = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        const city = localCity      
+        if(city === '') return undefined;
+        const cityCopy = city      
             .replace(/(,\s+)/g, ',') // Quitar espacios después de una coma.
-            .replace(/(\s+,)/g, ',') // Quitar espacioes antes de una coma.
-        setCity(city)
+            .replace(/(\s+,)/g, ',') // Quitar espacioes antes de una coma
+        dispatch(fetchWeatherDataRedux(cityCopy, 'metric'));
     }
 
   return (
@@ -45,7 +49,7 @@ const Search = () => {
          name='search' 
          placeholder='Search for places...' 
          onChange={e => updateCityValue(e.target.value)}
-         value={localCity}>
+         value={city}>
         </input>
 
         <span 
