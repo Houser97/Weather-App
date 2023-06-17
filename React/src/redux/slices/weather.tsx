@@ -124,7 +124,6 @@ export const fetchWeatherDataRedux = (city: string, tempUnit: string) => {
             if(weatherData){ 
                 const {current, forecast, hourly} = weatherData
                 dispatch(getDataSuccess({current, forecast, hourly}))
-                console.log(weatherData)
                 dispatch(setCityValidation(false))
             } else {
                 dispatch(setCityValidation(true))
