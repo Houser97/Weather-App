@@ -22,7 +22,12 @@ import Humidity from './icons/general/humidity.svg'
 import Clouds from './icons/weather/cloudyDay.svg'
 import CloudsNight from './icons/weather/cloudyNight.svg'
 
-export const weatherIcons = {
+// Se define index signature para poder ingresar al objeto de forma dinámica.
+interface iconsType {
+    [index: string]: string
+}
+
+export const weatherIcons: iconsType = {
     //Day
     Thunderstorm,
     Drizzle,
