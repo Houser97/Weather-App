@@ -3,7 +3,7 @@ import '../styles/Search.css'
 import searchIcon from '../assets/icons/general/search.svg'
 import deleteIcon from '../assets/icons/general/delete.svg'
 import { useDispatch } from 'react-redux'
-import { AppDispatch } from '../store'
+import { AppDispatch } from '../redux/store'
 import { fetchWeatherDataRedux } from '../redux/slices/weather'
 
 const Search = () => {
