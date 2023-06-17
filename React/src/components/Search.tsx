@@ -11,7 +11,7 @@ const Search = () => {
     const dispatch = useDispatch<AppDispatch>()
 
     const [showDeleteBtn, setShowDeleteBtn] = useState(false)
-    const [city, setCity] = useState('Puebla')
+    const [city, setCity] = useState('')
 
     const isCityEmpty = (city: string) => {
         const cityLength = city.length
