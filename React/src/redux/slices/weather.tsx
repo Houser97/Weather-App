@@ -86,6 +86,7 @@ export const weatherSlice = createSlice({
             state.forecastHourly = payload.hourly
             state.isLoading = false
             state.hasData = true
+            state.isCityValid = true
         },
         setIsLoading: (state) => {
             state.isLoading = false
@@ -115,7 +116,7 @@ export default weatherSlice.reducer
 
 //Se define función que busca la data del clima. Esta función estaba anteriormente en el componente de Search.
 export const fetchWeatherDataRedux = (city: string, tempUnit: string) => {
-    return async (dispatch: ThunkDispatch<RootState, unknown, AnyAction>) => {
+    return async (dispatch: Dispatch) => {
         dispatch(getWeatherData())
 
         try{
@@ -124,11 +125,10 @@ export const fetchWeatherDataRedux = (city: string, tempUnit: string) => {
             if(weatherData){ 
                 const {current, forecast, hourly} = weatherData
                 dispatch(getDataSuccess({current, forecast, hourly}))
-                dispatch(setCityValidation(false))
+                dispatch(setCityValidation({cityValidation: true}))
             } else {
-                dispatch(setCityValidation(true))
+                dispatch(setCityValidation({cityValidation: false}))
                 dispatch(setIsLoading())
-                //setIsLoading(false)
             }
         } catch(error){
             dispatch(getDataFailure())
