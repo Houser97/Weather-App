@@ -1,14 +1,16 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import '../styles/Search.css'
 import searchIcon from '../assets/icons/general/search.svg'
 import deleteIcon from '../assets/icons/general/delete.svg'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch } from '../redux/store'
-import { fetchWeatherDataRedux } from '../redux/slices/weather'
+import { fetchWeatherDataRedux, weatherDataSelector } from '../redux/slices/weather'
 
 const Search = () => {
 
     const dispatch = useDispatch<AppDispatch>()
+
+    const { isCityValid } = useSelector(weatherDataSelector)
 
     const [showDeleteBtn, setShowDeleteBtn] = useState(false)
     const [city, setCity] = useState('')
@@ -57,6 +59,8 @@ const Search = () => {
          onClick={deleteCity}>
             <img src={deleteIcon}></img>
         </span>
+
+        <span className={`city-error ${!isCityValid && 'show-error'}`}>City is not valid</span>
     </form>
   )
 }

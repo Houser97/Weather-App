@@ -3,18 +3,20 @@
     padding: 5px;
     display: flex;
     align-items: center;
-    border: 2px solid gray;
+    position: relative;
 }
 
 .Search-form input {
     color: black;
     border: none;
     font-size: 18px;
+    width: 100%;
 }
 
 .Search-form img {
     width: 22px;
     height: auto;
+    margin-right: 8px;
 }
 
 .Search-form button {
@@ -32,4 +34,19 @@
 .hide-btn{
     pointer-events: none;
     opacity: 0;
+}
+
+.city-error {
+    position: absolute;
+    bottom: -15px;
+    color: rgb(31, 131, 238);
+    width: 100%;
+    font-weight: bold;
+    text-align: center;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.show-error{
+    opacity: 1;
 }
