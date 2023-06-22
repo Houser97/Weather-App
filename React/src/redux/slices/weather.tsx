@@ -1,4 +1,4 @@
-import { AnyAction, createSlice, Dispatch, ThunkDispatch } from "@reduxjs/toolkit";
+import { createSlice, Dispatch } from "@reduxjs/toolkit";
 import { currentType, hourlyType, forecastType, weatherDataType, RootState } from "../../TypeScript/weatherTypes";
 import { fetchWeatherData } from '../../assets/apiWeatherFunctions'
 
