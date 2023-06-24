@@ -1,0 +1,40 @@
+.datacard-container {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    row-gap: 3px;
+    background-color: white;
+    border-radius: 10px;
+    padding: 30px 20px;
+    padding-bottom: 10px;
+    font-family: 'Lato', sans-serif;
+    color: gray;
+}
+
+.icon-value {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    column-gap: 15px;
+}
+
+.icon-value img {
+    width: 90px;
+    height: auto;
+}
+
+.datacard-container h3 {
+    color: gray;
+    margin: 5px;
+    font-size: 24px;
+}
+
+.sunrise-sunset-value{
+    font-size: 28px;
+    font-weight: bold;
+    color: gray;
+}
+
+.sunrise-hour{
+    font-weight: bold;
+}
