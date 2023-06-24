@@ -27,6 +27,9 @@ export interface forecastType {
     feels_like: number,
     weather: string,
     type: string,
+    humidity: number,
+    pressure: number,
+    windSpeed: number,
     units: string,
 }
 
@@ -52,5 +55,4 @@ export interface weatherDataType {
 
 export interface RootState {
     weather: weatherDataType;
-    // Otros slices y sus estados aquí...
 }
