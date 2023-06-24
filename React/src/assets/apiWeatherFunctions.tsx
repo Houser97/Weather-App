@@ -57,6 +57,7 @@ export const fetchWeatherData = async (city: string, units = 'metric') => {
     const {lat, lon}: Coordinates = coords
     const weatherDataRaw = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=alerts&units=${units}&appid=a17d8aca84846ee500b328a8df181e45`, { mode: "cors" })
     const {current, daily, hourly, timezone} = await weatherDataRaw.json()
+    console.log(daily)
     const {humidity, pressure, temp, visibility, wind_speed, weather, feels_like, dt, sunset, sunrise} = current
     const {day, date} = getDateFromDT(dt)
     const hour = getHourFromDT24(dt, timezone)
@@ -95,7 +96,9 @@ export const fetchWeatherData = async (city: string, units = 'metric') => {
         feels_like: forecast.feels_like.day,
         weather: forecast.weather[0].main,
         type: 'daily',
-        city, //Se agrega para mejorar KEY al momento de renderizar ForecastCard en Forecast.
+        pressure: forecast.pressure,
+        humidity: forecast.humidity,
+        windSpeed: forecast.wind_speed,
         units    
         }
         forecastData.push(data)
