@@ -31,6 +31,9 @@ const forecastElementDailyInitialValue: forecastType = {
     feels_like: 0,
     weather: '',
     type: 'daily',
+    humidity: 0,
+    pressure: 0,
+    windSpeed: 0,
     units: ''    
 }
 

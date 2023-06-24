@@ -11,8 +11,10 @@ const ForecastCard = ({data, forecastType}: ForecastCardProps) => {
 
     const icon = weatherIcons[data.weather]
     const date = data.date
+    const humidity = data.humidity
+    const pressure = data.pressure
+    const windSpeed = data.windSpeed
     const temperature = data.temperature
-    console.log(icon)
     
   return (
     <div className='forecast-card'>
@@ -20,10 +22,23 @@ const ForecastCard = ({data, forecastType}: ForecastCardProps) => {
         <img src={icon} alt="weather-icon" className='forecast-weather-icon' />
         <div className='weather-data-forecast'>
             <div className='forecast-pressure-humidity'>
-                <span>12</span>
-                <span>23</span>
+                <span>
+                    <img src={weatherIcons['Humidity']} alt="Humidity-icon" />
+                    {humidity}
+                </span>
+                <span>
+                    <img src={weatherIcons['Barometer']} alt="Humidity-icon" />
+                    {pressure}
+                </span>
+                <span>
+                    <img src={weatherIcons['WindSpeed']} alt="Humidity-icon" />
+                    {windSpeed}
+                </span>
             </div>
-            <span className='forecast-temperature'>{temperature}</span>
+            <div className="temperature-container">
+                <span className='temperature'>{temperature}</span>
+                <span className='unit'>°C</span>
+            </div>
         </div>
     </div>
   )
