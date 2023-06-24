@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300&family=Secular+One&display=swap');
+
+.forecast-card{
+    display: flex;
+    flex-direction: column;
+    width: 230px;
+    border-radius: 10px;
+    background-color: white;
+    position: relative;
+    align-items: center;
+    justify-content: space-around;
+    padding: 10px 0px;
+    row-gap: 10px;
+    font-family: 'Lato', sans-serif;
+}
+
+.forecast-weather-icon {
+    width: auto;
+    height: 150px;
+}
+
+.forecast-day-hour {
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.weather-data-forecast{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+    padding: 0px 5px;
+}
+
+.forecast-pressure-humidity{
+    display: flex;
+    flex-direction: column;
+}
+
+.forecast-pressure-humidity span{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 0px;
+    width: max-content; 
+    font-size: 16px;
+}
+
+.forecast-pressure-humidity span img{
+    width: 30px;
+    height: auto;
+}
+
+.forecast-card .temperature-container {
+    font-size: 30px;
+    position: absolute;
+    bottom: 30px; right: 10px;
+    font-weight: 550;
+}
+
+.forecast-card .temperature-container .unit {
+    font-size: 20px;
+    top: 2px;
+    right: 0px;
+    position: relative;
+}
