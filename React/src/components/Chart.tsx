@@ -39,6 +39,11 @@ const Chart = () => {
     const [dataChart, setDataChart] = useState([4, 2, 5, 2, 8, 7])
     const [maxValue, setMaxValue] = useState(40)
     const [minValue, setMinValue] = useState(20)
+    const [units, setUnits] = useState(current.units === 'metric' ? '°C' : '°F')
+
+    useEffect(() => {
+        setUnits(current.units === 'metric' ? '°C' : '°F')
+    }, [current.units])
 
     const getforecastDailyData = () => {
         return forecastDaily.reduce((acc: Accumulator, forecast) => {
@@ -73,7 +78,7 @@ const Chart = () => {
       setMaxValue(Math.ceil(data.max + ChartMinMaxOffset))
       setMinValue(Math.ceil(data.min - ChartMinMaxOffset))
     
-    }, [current.city, forecastOption])
+    }, [current.city, forecastOption, current.units])
     
 
     const data = {
@@ -115,7 +120,7 @@ const Chart = () => {
                 max: maxValue,
                 ticks: {
                     stepSize: 2,
-                    callback: (value: number) => value + '°C'
+                    callback: (value: number) => value + units
                 },
                 grid: {
                     display: false
