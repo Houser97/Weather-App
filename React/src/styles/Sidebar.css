@@ -7,3 +7,11 @@
     align-items: center;
     padding: 50px;
 }
+
+@media (max-width: 1400px) {
+    .Sidebar-container{
+        width: 300px;
+        padding: 30px;
+        padding-top: 70px;
+    }
+}
