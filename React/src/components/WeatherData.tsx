@@ -14,7 +14,7 @@ const WeatherData = () => {
     if(!hasData) return undefined
     const generalIcons = ['Tornado', 'Mist'];
     const icon = current.icon
-    const isDay = current.dt > current.sunrise && current.dt < current.sunset
+    const isDay = current.dt > current.sunriseDt && current.dt < current.sunsetDt
     !isDay && !generalIcons.includes(current.icon) ? setIcon(icon+'Night') : setIcon(icon)
   }, [current.city])
 
