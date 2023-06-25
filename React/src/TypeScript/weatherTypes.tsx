@@ -1,9 +1,12 @@
 export interface currentType {
+    [index: string]: string | number
     dt: number,
     description: string,
     humidity: number,
     pressure: number,
     temperature: number,
+    min: number,
+    max: number,
     icon: string,
     lat: number,
     lon: number,
@@ -13,10 +16,12 @@ export interface currentType {
     visibility: number,
     date: string,
     day: string,
-    sunset: number,
-    sunrise: number,
+    sunset: string,
+    sunrise: string,
+    sunsetDt: number,
+    sunriseDt: number,
     hour: string,
-    units: string
+    units: string,
 }
 
 export interface forecastType {
