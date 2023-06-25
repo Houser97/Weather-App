@@ -1,6 +1,9 @@
+import { useSelector } from 'react-redux'
+import { units } from '../assets/constants'
 import { weatherIcons } from '../assets/weatherIcons'
+import { weatherDataSelector } from '../redux/slices/weather'
 import '../styles/ForecastCard.css'
-import { forecastType, hourlyForecast, hourlyType } from '../TypeScript/weatherTypes'
+import { forecastType, hourlyForecast } from '../TypeScript/weatherTypes'
 
 interface ForecastCardProps {
     data: hourlyForecast | forecastType,
@@ -8,12 +11,17 @@ interface ForecastCardProps {
 
 const ForecastCard = ({data}: ForecastCardProps) => {
 
+    const { current } = useSelector(weatherDataSelector) // Se ocupa para extraer las unidades a usar.
+
     const icon = weatherIcons[data.weather]
     const dayHour = 'hour' in data ? data.hour : data.day
     const humidity = data.humidity
     const pressure = data.pressure
     const windSpeed = data.windSpeed
     const temperature = data.temperature
+
+    const unitWind = current.units === 'metric' ? 'wind_metric' : 'wind_imperial'
+    const unitTemp = current.units === 'metric' ? 'temp_metric' : 'temp_imperial'
     
   return (
     <div className='forecast-card'>
@@ -23,20 +31,20 @@ const ForecastCard = ({data}: ForecastCardProps) => {
             <div className='forecast-pressure-humidity'>
                 <span>
                     <img src={weatherIcons['Humidity']} alt="Humidity-icon" />
-                    {humidity} %
+                    {humidity} {units['humidity']}
                 </span>
                 <span>
                     <img src={weatherIcons['Barometer']} alt="Humidity-icon" />
-                    {pressure} hPa
+                    {pressure} {units['pressure']}
                 </span>
                 <span>
                     <img src={weatherIcons['WindSpeed']} alt="Humidity-icon" />
-                    {windSpeed} km/h
+                    {windSpeed} {units[unitWind]}
                 </span>
             </div>
             <div className="temperature-container">
                 <span className='temperature'>{temperature}</span>
-                <span className='unit'>°C</span>
+                <span className='unit'>{units[unitTemp]}</span>
             </div>
         </div>
     </div>

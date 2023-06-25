@@ -25,7 +25,7 @@ const DataCard = ({title, valueTarget1, valueTarget2, type}: props) => {
   const Icon2 = capitalizeFirstLetter(valueTarget2)
   const Description1 = getSecondWord(Icon1)
   const Description2 = getSecondWord(Icon2)
-  const unit = type === 'temperature' ? '°C' : ''
+  const unit = type === 'temperature' ? current.units === 'metric' ? '°C' : '°F' : ''
 
   return (
     <div className='datacard-container'>
