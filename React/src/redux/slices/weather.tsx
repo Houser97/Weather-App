@@ -9,6 +9,8 @@ const currentInitialValue: currentType = {
     pressure: 0,
     temperature: 0,
     icon: '',
+    min: 0,
+    max: 0,
     lat: 0,
     lon: 0,
     city: '',
@@ -17,8 +19,10 @@ const currentInitialValue: currentType = {
     visibility: 0,
     date: '',
     day: '',
-    sunset: 0,
-    sunrise: 0,
+    sunset: '00:00 AM',
+    sunrise: '00:00 AM',
+    sunriseDt: 0,
+    sunsetDt: 0,
     hour: '00:00',
     units: ''
 }
