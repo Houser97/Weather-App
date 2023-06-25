@@ -22,7 +22,7 @@ interface hourlyType {
     set4: Array<forecastType>
 }
 
-const capitalizeFirstLetter = (word: string) => {
+export const capitalizeFirstLetter = (word: string) => {
     let firstLetter = word.charAt(0)
     let firstLetterCap = firstLetter.toUpperCase()
     return firstLetterCap + word.slice(1)
@@ -35,9 +35,9 @@ const getDateFromDT = (dt: number) => {
     return {day, date}
 }
 
-const getHourFromDT = (dt: number) => {
+const getHourFromDT = (dt: number, timezone: string) => {
     const rawDate = new Date(dt * 1000)
-    return rawDate.toLocaleTimeString([], {hour: 'numeric', minute: 'numeric', hour12: true})
+    return rawDate.toLocaleTimeString([], {hour: 'numeric', minute: 'numeric', hour12: true, timeZone: timezone})
 }
 
 const getHourFromDT24 = (dt: number, timezone: string) => {
@@ -61,12 +61,18 @@ export const fetchWeatherData = async (city: string, units = 'metric') => {
     const {humidity, pressure, temp, visibility, wind_speed, weather, feels_like, dt, sunset, sunrise} = current
     const {day, date} = getDateFromDT(dt)
     const hour = getHourFromDT24(dt, timezone)
+    const sunsetFormatted = getHourFromDT(sunset, timezone)
+    const sunriseFormatted = getHourFromDT(sunrise, timezone)
     const currentData = {
         dt,
         description: capitalizeFirstLetter(weather[0].description),
         humidity: humidity,
         pressure: pressure,
         temperature: temp,
+        max: daily[0].temp.max,
+        min: daily[0].temp.min,
+        feelsDay: daily[0].feels_like.day,
+        feelsNight: daily[0].feels_like.night,
         icon: weather[0].main,
         lat,
         lon,
@@ -76,8 +82,10 @@ export const fetchWeatherData = async (city: string, units = 'metric') => {
         visibility,
         date,
         day,
-        sunset,
-        sunrise,
+        sunset: sunsetFormatted,
+        sunrise: sunriseFormatted,
+        sunsetDt: sunset,
+        sunriseDt: sunrise,
         hour,
         units //Se agrega el valor del estado unitTemp para garantizar que todo se renderice al mismo
         // tiempo en lugar de que las unidades primero y luego el valor dado por la API.
@@ -108,7 +116,7 @@ export const fetchWeatherData = async (city: string, units = 'metric') => {
 
     hourly.map((forecast: any, index: number) => {
         const dt = forecast.dt;
-        const hour = getHourFromDT(dt)
+        const hour = getHourFromDT(dt, timezone)
         const {day, date} = getDateFromDT(dt)
         const data: forecastType = {
         dt,
