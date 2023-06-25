@@ -1,8 +1,8 @@
 import { useSelector } from 'react-redux'
-import { capitalizeFirstLetter, getHourFromDT } from '../assets/apiWeatherFunctions'
+import { capitalizeFirstLetter } from '../assets/apiWeatherFunctions'
 import { weatherIcons } from '../assets/weatherIcons'
 import { weatherDataSelector } from '../redux/slices/weather'
-import '../styles/SunriseSunsetCard.css'
+import '../styles/DataCard.css'
 
 interface props {
   title: string,
@@ -11,11 +11,11 @@ interface props {
   type: string
 }
 
-const SunriseSunsetCard = ({title, valueTarget1, valueTarget2, type}: props) => {
+const DataCard = ({title, valueTarget1, valueTarget2, type}: props) => {
 
   const { current } = useSelector(weatherDataSelector)
-  const value1 = type === 'hour' ? getHourFromDT(Number(current[valueTarget1])) : current[valueTarget1]
-  const value2 = type === 'hour' ? getHourFromDT(Number(current[valueTarget2])) : current[valueTarget2]
+  const value1 = current[valueTarget1]
+  const value2 = current[valueTarget2]
   const nameValue1 = capitalizeFirstLetter(valueTarget1)
   const nameValue2 = capitalizeFirstLetter(valueTarget2)
   const unit = type === 'temperature' ? '°C' : ''
@@ -41,4 +41,4 @@ const SunriseSunsetCard = ({title, valueTarget1, valueTarget2, type}: props) => 
   )
 }
 
-export default SunriseSunsetCard
+export default DataCard
