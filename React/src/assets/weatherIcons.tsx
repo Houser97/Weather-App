@@ -21,6 +21,14 @@ import FogNight from './icons/weather/fogNight.svg'
 import Humidity from './icons/general/humidity.svg'
 import Clouds from './icons/weather/cloudyDay.svg'
 import CloudsNight from './icons/weather/cloudyNight.svg'
+import Barometer from './icons/general/barometer.svg'
+import WindSpeed from './icons/general/dust-wind.svg'
+import Sunrise from './icons/weather/sunrise.svg'
+import Sunset from './icons/weather/sunset.svg'
+import Min from './icons/general/thermometer-colder.svg'
+import Max from './icons/general/thermometer-warmer.svg'
+import FeelsDay from './icons/weather/day.svg'
+import FeelsNight from './icons/weather/night.svg'
 
 // Se define index signature para poder ingresar al objeto de forma dinámica.
 interface iconsType {
@@ -55,5 +63,13 @@ export const weatherIcons: iconsType = {
     //General
     Tornado,
     Mist,
-    Humidity
+    Humidity,
+    Barometer,
+    WindSpeed,
+    Sunrise,
+    Sunset,
+    Min,
+    Max,
+    FeelsDay,
+    FeelsNight
 }
