@@ -11,6 +11,7 @@ import {
 import { useSelector } from 'react-redux'
 import { weatherDataSelector } from '../redux/slices/weather'
 import { useEffect, useState } from 'react'
+import { filterSelector } from '../redux/slices/filter'
 
 interface Accumulator {
     labels: string[],
@@ -31,30 +32,48 @@ const ChartMinMaxOffset = 1
 
 const Chart = () => {
 
-    const { current, forecastDaily } = useSelector(weatherDataSelector)
+    const { forecastOption } = useSelector(filterSelector)
+
+    const { current, forecastDaily, forecastHourly } = useSelector(weatherDataSelector)
     const [labels, setLabels] = useState(["Jan", "Feb", "Mar", "Apr", "May", "Jun"])
     const [dataChart, setDataChart] = useState([4, 2, 5, 2, 8, 7])
     const [maxValue, setMaxValue] = useState(40)
     const [minValue, setMinValue] = useState(20)
 
+    const getforecastDailyData = () => {
+        return forecastDaily.reduce((acc: Accumulator, forecast) => {
+            const temperature = forecast.temperature
+            const label = forecast.date //Acá es hour con forecast hourly
+            acc.labels = [...acc.labels, label]
+            acc.data = [...acc.data, temperature]
+            acc.max = Math.max(acc.max, temperature)
+            acc.min = Math.min(acc.min, temperature)
+            return acc
+          }, {labels: [], data: [], max: -Infinity, min: Infinity})
+    }
+
+    const getforecastHourlyData = () => {
+        return forecastHourly.set1.reduce((acc: Accumulator, forecast) => {
+            const temperature = forecast.temperature
+            const label = forecast.hour //Acá es hour con forecast hourly
+            acc.labels = [...acc.labels, label]
+            acc.data = [...acc.data, temperature]
+            acc.max = Math.max(acc.max, temperature)
+            acc.min = Math.min(acc.min, temperature)
+            return acc
+          }, {labels: [], data: [], max: -Infinity, min: Infinity})
+    }
+
     useEffect(() => {
         //Acá se debe escoger el set a iterar cuando el forecast sea hourly
-      const data = forecastDaily.reduce((acc: Accumulator, forecast) => {
-        const temperature = forecast.temperature
-        const label = forecast.date //Acá es hour con forecast hourly
-        acc.labels = [...acc.labels, label]
-        acc.data = [...acc.data, temperature]
-        acc.max = Math.max(acc.max, temperature)
-        acc.min = Math.min(acc.min, temperature)
-        return acc
-      }, {labels: [], data: [], max: -Infinity, min: Infinity})
+      const data = forecastOption === 'daily' ? getforecastDailyData() : getforecastHourlyData()
 
       setLabels(data.labels)
       setDataChart(data.data)
       setMaxValue(Math.ceil(data.max + ChartMinMaxOffset))
       setMinValue(Math.ceil(data.min - ChartMinMaxOffset))
     
-    }, [current.city])
+    }, [current.city, forecastOption])
     
 
     const data = {
