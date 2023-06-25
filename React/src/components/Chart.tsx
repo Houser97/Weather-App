@@ -27,7 +27,7 @@ ChartJS.register(
     //Filler,
 )
 
-const ChartMinMaxOffset = 0.5
+const ChartMinMaxOffset = 1
 
 const Chart = () => {
 
@@ -38,9 +38,10 @@ const Chart = () => {
     const [minValue, setMinValue] = useState(20)
 
     useEffect(() => {
-      const data = forecastDaily.reduce((acc: Accumulator,forecast) => {
+        //Acá se debe escoger el set a iterar cuando el forecast sea hourly
+      const data = forecastDaily.reduce((acc: Accumulator, forecast) => {
         const temperature = forecast.temperature
-        const label = forecast.day
+        const label = forecast.date //Acá es hour con forecast hourly
         acc.labels = [...acc.labels, label]
         acc.data = [...acc.data, temperature]
         acc.max = Math.max(acc.max, temperature)
@@ -50,8 +51,8 @@ const Chart = () => {
 
       setLabels(data.labels)
       setDataChart(data.data)
-      setMaxValue(data.max + ChartMinMaxOffset)
-      setMinValue(data.min - ChartMinMaxOffset)
+      setMaxValue(Math.ceil(data.max + ChartMinMaxOffset))
+      setMinValue(Math.ceil(data.min - ChartMinMaxOffset))
     
     }, [current.city])
     
