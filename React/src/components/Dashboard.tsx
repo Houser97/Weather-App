@@ -1,19 +1,31 @@
+import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
+import useWindowSize from '../assets/hooks/windowSize'
 import { filterSelector } from '../redux/slices/filter'
 import { weatherDataSelector } from '../redux/slices/weather'
 import '../styles/Dashboard.css'
+import Carousel from './Carousel'
 import Chart from './Chart'
 import ExtraData from './ExtraData'
 import FilterOptions from './FilterOptions'
 import ForecastCard from './ForecastCard'
 
+const widthWindow = 2560
 
 const Dashboard = () => {
+
+  const windowSize = useWindowSize()
 
   const { forecastOption } = useSelector(filterSelector)
 
   const { forecastDaily, forecastHourly } = useSelector(weatherDataSelector)
 
+  const [showCarousel, setShowCarousel] = useState(windowSize.width < widthWindow || forecastOption == 'hourly')
+
+  useEffect(() => {
+    setShowCarousel(windowSize.width < widthWindow || forecastOption == 'hourly')
+  }, [windowSize.width, forecastOption])
+   
   const getforecastDailyData = () => {
     return forecastDaily.map((forecastData, index) => {
       return(
@@ -43,7 +55,7 @@ const Dashboard = () => {
   return (
     <div className='dashboard-container'>
       <FilterOptions />
-      {CardNoCarousel()}
+      {showCarousel ? <Carousel /> :CardNoCarousel()}
       <div className='chart-extradata-container'>
         <Chart />
         <ExtraData />
