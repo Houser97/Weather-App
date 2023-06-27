@@ -7,18 +7,6 @@ import ExtraData from './ExtraData'
 import FilterOptions from './FilterOptions'
 import ForecastCard from './ForecastCard'
 
-import "slick-carousel/slick/slick.css"; 
-import "slick-carousel/slick/slick-theme.css";
-import Slider from 'react-slick';
-
-let settings = {
-  infinite: true,
-  speed: 500,
-  slidesToShow: 7,
-  slidesToScroll: 0,
-  autoplay: true,
-}
-
 
 const Dashboard = () => {
 
@@ -42,16 +30,20 @@ const Dashboard = () => {
     })
   }
 
+  const CardNoCarousel = () => {
+    return(
+      <div className='dashboard-forecast-container'>
+          {
+            forecastOption === 'daily' ? getforecastDailyData() : getforecastHourlyData()
+          }
+      </div>
+    )
+  }
+
   return (
     <div className='dashboard-container'>
       <FilterOptions />
-      <div className='dashboard-forecast-container'>
-        <Slider {...settings} className = "carousel">
-            {
-              forecastOption === 'daily' ? getforecastDailyData() : getforecastHourlyData()
-            }
-        </Slider>
-      </div>
+      {CardNoCarousel()}
       <div className='chart-extradata-container'>
         <Chart />
         <ExtraData />
