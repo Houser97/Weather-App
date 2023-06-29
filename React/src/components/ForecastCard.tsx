@@ -1,6 +1,7 @@
 import { useSelector } from 'react-redux'
 import { units } from '../assets/constants'
 import { weatherIcons } from '../assets/weatherIcons'
+import { filterSelector } from '../redux/slices/filter'
 import { weatherDataSelector } from '../redux/slices/weather'
 import '../styles/ForecastCard.css'
 import { forecastType, hourlyForecast } from '../TypeScript/weatherTypes'
@@ -12,6 +13,7 @@ interface ForecastCardProps {
 const ForecastCard = ({data}: ForecastCardProps) => {
 
     const { current } = useSelector(weatherDataSelector) // Se ocupa para extraer las unidades a usar.
+    const { forecastOption } = useSelector(filterSelector)
 
     const icon = weatherIcons[data.weather]
     const dayHour = 'hour' in data ? data.hour : data.day
@@ -24,7 +26,7 @@ const ForecastCard = ({data}: ForecastCardProps) => {
     const unitTemp = current.units === 'metric' ? 'temp_metric' : 'temp_imperial'
     
   return (
-    <div className='forecast-card'>
+    <div className={`forecast-card ${forecastOption === 'hourly' && 'hourly'}`}>
         <div className='forecast-day-hour'>{dayHour}</div>
         <img src={icon} alt="weather-icon" className='forecast-weather-icon' />
         <div className='weather-data-forecast'>
