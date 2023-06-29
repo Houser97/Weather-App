@@ -11,7 +11,10 @@
 }
 
 .dashboard-forecast-container{
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    grid-template-rows: minmax(max-content, 1fr);
+    gap: 30px;
     flex-direction: row;
     justify-content: space-evenly;
     padding: 20px;
