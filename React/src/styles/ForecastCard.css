@@ -3,7 +3,10 @@
 .forecast-card{
     display: flex;
     flex-direction: column;
-    width: 230px;
+    /*width: 230px;*/
+    width: 100%;
+    justify-self: center;
+    align-self: center;
     border-radius: 10px;
     background-color: white;
     position: relative;
@@ -12,6 +15,11 @@
     padding: 10px 0px;
     row-gap: 10px;
     font-family: 'Lato', sans-serif;
+    color: gray;
+}
+
+.forecast-card.hourly {
+    width: 90% !important;
 }
 
 .forecast-weather-icon {
@@ -22,7 +30,7 @@
 .forecast-day-hour {
     position: absolute;
     top: 3px;
-    right: 3px;
+    right: 20px;
     font-size: 16px;
     font-weight: bold;
 }
