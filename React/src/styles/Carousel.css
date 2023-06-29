@@ -26,3 +26,7 @@
     height: max-content !important;
     overflow: visible; /*Para que se vean los botone de desplazamiento.*/
 }
+
+.slick-next:before, .slick-prev:before{
+    color: rgb(121, 121, 121) !important;
+}
