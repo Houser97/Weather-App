@@ -33,6 +33,8 @@ const forecastElementDailyInitialValue: forecastType = {
     date: '',
     temperature: 0,
     feels_like: 0,
+    sunrise: 0,
+    sunset: 0,
     weather: '',
     type: 'daily',
     humidity: 0,
