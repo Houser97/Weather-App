@@ -38,7 +38,7 @@ export interface forecastType {
     units: string,
 }
 
-interface hourlyForecast extends forecastType {
+export interface hourlyForecast extends forecastType {
     hour: string
 }
 
