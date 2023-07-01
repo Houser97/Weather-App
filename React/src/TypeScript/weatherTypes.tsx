@@ -31,6 +31,8 @@ export interface forecastType {
     temperature: number,
     feels_like: number,
     weather: string,
+    sunrise: number,
+    sunset: number,
     type: string,
     humidity: number,
     pressure: number,
@@ -60,4 +62,11 @@ export interface weatherDataType {
 
 export interface RootState {
     weather: weatherDataType;
+}
+
+export interface sunsetSunriseDataType {
+    [index: string]: {
+        sunset: number,
+        sunrise: number
+    }
 }
