@@ -1,5 +1,7 @@
+import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { units } from '../assets/constants'
+import useWindowSize from '../assets/hooks/windowSize'
 import { weatherIcons } from '../assets/weatherIcons'
 import { filterSelector } from '../redux/slices/filter'
 import { weatherDataSelector } from '../redux/slices/weather'
@@ -12,10 +14,27 @@ interface ForecastCardProps {
 
 const ForecastCard = ({data}: ForecastCardProps) => {
 
+    const windowSize = useWindowSize()
+
     const { current } = useSelector(weatherDataSelector) // Se ocupa para extraer las unidades a usar.
     const { forecastOption } = useSelector(filterSelector)
 
-    const icon = weatherIcons[data.weather]
+    const [icon, setIcon] = useState<string>('Clear')
+    const [forecastCardClasses, setForecastCardClasses] = useState(`forecast-card ${forecastOption === 'hourly' && 'hourly'} 
+    ${forecastOption !== 'hourly' && windowSize.width < 2560 && 'daily-sm'}`)
+
+    useEffect(() => {
+        const generalIcons = ['Tornado', 'Mist'];
+        const icon = data.weather
+        const isDay = data.dt > data.sunrise && data.dt < data.sunset
+        !isDay && !generalIcons.includes(icon) ? setIcon(icon+'Night') : setIcon(icon)
+    }, [current.city])
+
+    useEffect(() => {
+        setForecastCardClasses(`forecast-card ${forecastOption === 'hourly' && 'hourly'} 
+        ${forecastOption !== 'hourly' && windowSize.width < 2560 && 'daily-sm'}`)
+    }, [forecastOption, windowSize.width])
+
     const dayHour = 'hour' in data ? data.hour : data.day
     const humidity = data.humidity
     const pressure = data.pressure
@@ -26,9 +45,9 @@ const ForecastCard = ({data}: ForecastCardProps) => {
     const unitTemp = current.units === 'metric' ? 'temp_metric' : 'temp_imperial'
     
   return (
-    <div className={`forecast-card ${forecastOption === 'hourly' && 'hourly'}`}>
+    <div className={forecastCardClasses}>
         <div className='forecast-day-hour'>{dayHour}</div>
-        <img src={icon} alt="weather-icon" className='forecast-weather-icon' />
+        <img src={weatherIcons[icon]} alt="weather-icon" className='forecast-weather-icon' />
         <div className='weather-data-forecast'>
             <div className='forecast-pressure-humidity'>
                 <span>
