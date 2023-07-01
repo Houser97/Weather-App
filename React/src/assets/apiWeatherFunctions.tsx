@@ -1,25 +1,8 @@
+import { hourlyForecast, hourlyType } from "../TypeScript/weatherTypes"
+
 interface Coordinates {
     lat: number,
     lon: number
-}
-
-interface forecastType {
-    dt: number,
-    day: string,
-    date: string,
-    temperature: number,
-    feels_like: number,
-    weather: string,
-    type: string,
-    units: string, 
-    hour?: string
-}
-
-interface hourlyType {
-    set1: Array<forecastType>,
-    set2: Array<forecastType>,
-    set3: Array<forecastType>,
-    set4: Array<forecastType>
 }
 
 export const capitalizeFirstLetter = (word: string) => {
@@ -57,7 +40,6 @@ export const fetchWeatherData = async (city: string, units = 'metric') => {
     const {lat, lon}: Coordinates = coords
     const weatherDataRaw = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=alerts&units=${units}&appid=a17d8aca84846ee500b328a8df181e45`, { mode: "cors" })
     const {current, daily, hourly, timezone} = await weatherDataRaw.json()
-    console.log(daily)
     const {humidity, pressure, temp, visibility, wind_speed, weather, feels_like, dt, sunset, sunrise} = current
     const {day, date} = getDateFromDT(dt)
     const hour = getHourFromDT24(dt, timezone)
@@ -113,18 +95,20 @@ export const fetchWeatherData = async (city: string, units = 'metric') => {
     }
 
     const forecastDataHourly: hourlyType = {set1: [], set2: [], set3:[], set4:[]}
-
     hourly.map((forecast: any, index: number) => {
         const dt = forecast.dt;
         const hour = getHourFromDT(dt, timezone)
         const {day, date} = getDateFromDT(dt)
-        const data: forecastType = {
+        const data: hourlyForecast = {
         dt,
         hour,
         date,
         day,
         temperature: forecast.temp,
         feels_like: forecast.feels_like,
+        pressure: forecast.pressure,
+        humidity: forecast.humidity,
+        windSpeed: forecast.wind_speed,
         weather: forecast.weather[0].main,
         units,
         type: 'hourly'
