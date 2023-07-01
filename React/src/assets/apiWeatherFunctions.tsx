@@ -1,4 +1,4 @@
-import { hourlyForecast, hourlyType } from "../TypeScript/weatherTypes"
+import { hourlyForecast, hourlyType, sunsetSunriseDataType } from "../TypeScript/weatherTypes"
 
 interface Coordinates {
     lat: number,
@@ -11,11 +11,13 @@ export const capitalizeFirstLetter = (word: string) => {
     return firstLetterCap + word.slice(1)
 }
 
-const getDateFromDT = (dt: number) => {
+const getDateFromDT = (dt: number, timezone: string) => {
     const dateRaw = new Date(dt * 1000)
-    const date = dateRaw.toLocaleDateString()
-    const day = dateRaw.toLocaleString('en-US', { weekday: 'long' });
-    return {day, date}
+    const options = { timeZone: timezone};
+    const dateTimeFormat = new Intl.DateTimeFormat('en-US', options); //Se formatea la fecha según el timezone para
+    //evitar problemas de calcular incorrectamente isDay en ForecastCard.
+    const day = dateRaw.toLocaleString('en-US', { weekday: 'long', timeZone: timezone });
+    return {day, date: dateTimeFormat.format(dateRaw)}
 }
 
 const getHourFromDT = (dt: number, timezone: string) => {
@@ -41,7 +43,7 @@ export const fetchWeatherData = async (city: string, units = 'metric') => {
     const weatherDataRaw = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=alerts&units=${units}&appid=a17d8aca84846ee500b328a8df181e45`, { mode: "cors" })
     const {current, daily, hourly, timezone} = await weatherDataRaw.json()
     const {humidity, pressure, temp, visibility, wind_speed, weather, feels_like, dt, sunset, sunrise} = current
-    const {day, date} = getDateFromDT(dt)
+    const {day, date} = getDateFromDT(dt, timezone)
     const hour = getHourFromDT24(dt, timezone)
     const sunsetFormatted = getHourFromDT(sunset, timezone)
     const sunriseFormatted = getHourFromDT(sunrise, timezone)
@@ -74,10 +76,14 @@ export const fetchWeatherData = async (city: string, units = 'metric') => {
     }
 
     const forecastData = []
+    const sunsetSunriseData: sunsetSunriseDataType = {} // Se usa para saber en Sunrise y Sunset en los días de predicción, lo cual se usa
+    //para determinar si es día o noche en el forecast de daily
 
     for(const forecast of daily){
         const dt = forecast.dt;
-        const {day, date} = getDateFromDT(dt)
+        const {day, date} = getDateFromDT(dt, timezone)
+        const sunrise = forecast.sunrise
+        const sunset = forecast.sunset
         const data = {
         dt,
         day,
@@ -86,21 +92,29 @@ export const fetchWeatherData = async (city: string, units = 'metric') => {
         feels_like: forecast.feels_like.day,
         weather: forecast.weather[0].main,
         type: 'daily',
+        sunrise,
+        sunset,
         pressure: forecast.pressure,
         humidity: forecast.humidity,
         windSpeed: forecast.wind_speed,
-        units    
+        units,
+        hour: getHourFromDT(dt, timezone)
         }
         forecastData.push(data)
+        sunsetSunriseData[date] = {sunrise, sunset}
     }
+
+    console.table(forecastData, ['dt', 'sunrise', 'sunset', 'hour'])
 
     const forecastDataHourly: hourlyType = {set1: [], set2: [], set3:[], set4:[]}
     hourly.map((forecast: any, index: number) => {
         const dt = forecast.dt;
         const hour = getHourFromDT(dt, timezone)
-        const {day, date} = getDateFromDT(dt)
+        const {day, date} = getDateFromDT(dt, timezone)
         const data: hourlyForecast = {
         dt,
+        sunrise: sunsetSunriseData[date]['sunrise'],
+        sunset: sunsetSunriseData[date]['sunset'],
         hour,
         date,
         day,
