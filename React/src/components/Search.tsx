@@ -1,19 +1,35 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import '../styles/Search.css'
 import searchIcon from '../assets/icons/general/search.svg'
 import deleteIcon from '../assets/icons/general/delete.svg'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch } from '../redux/store'
 import { fetchWeatherDataRedux, weatherDataSelector } from '../redux/slices/weather'
+import { filterSelector } from '../redux/slices/filter'
 
 const Search = () => {
 
     const dispatch = useDispatch<AppDispatch>()
 
     const { isCityValid } = useSelector(weatherDataSelector)
+    const { metricOptions } = useSelector(filterSelector)
 
     const [showDeleteBtn, setShowDeleteBtn] = useState(false)
-    const [city, setCity] = useState('')
+    const [city, setCity] = useState('Puebla')
+
+    useEffect(() => {
+        if(city === '') return undefined;
+        const cityCopy = city      
+            .replace(/(,\s+)/g, ',') // Quitar espacios después de una coma.
+            .replace(/(\s+,)/g, ',') // Quitar espacioes antes de una coma
+        dispatch(fetchWeatherDataRedux(cityCopy, metricOptions));
+    }, [metricOptions])
+
+    useEffect(() => {
+        if(!isCityValid || city === '') return undefined
+        setCity('')
+    }, [isCityValid])
+    
 
     const isCityEmpty = (city: string) => {
         const cityLength = city.length
@@ -37,7 +53,7 @@ const Search = () => {
         const cityCopy = city      
             .replace(/(,\s+)/g, ',') // Quitar espacios después de una coma.
             .replace(/(\s+,)/g, ',') // Quitar espacioes antes de una coma
-        dispatch(fetchWeatherDataRedux(cityCopy, 'metric'));
+        dispatch(fetchWeatherDataRedux(cityCopy, metricOptions));
     }
 
   return (
