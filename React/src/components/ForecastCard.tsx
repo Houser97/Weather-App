@@ -1,4 +1,3 @@
-import moment from 'moment'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { units } from '../assets/constants'
@@ -8,13 +7,13 @@ import { filterSelector } from '../redux/slices/filter'
 import { weatherDataSelector } from '../redux/slices/weather'
 import '../styles/ForecastCard.css'
 import { forecastType, hourlyForecast } from '../TypeScript/weatherTypes'
+import { DateTime } from 'luxon';
 
 interface ForecastCardProps {
     data: hourlyForecast | forecastType,
 }
 
 const ForecastCard = ({data}: ForecastCardProps) => {
-    moment.locale('en');
 
     const windowSize = useWindowSize()
 
@@ -38,7 +37,9 @@ const ForecastCard = ({data}: ForecastCardProps) => {
     }, [forecastOption, windowSize.width])
 
     const hour = 'hour' in data ? data.hour : '' 
-    const date = data.date
+    const date = DateTime.fromFormat(data.date, 'M/d/yyyy', { locale: 'en-US' })
+    const format = hour === '' ? 'EEEE, MMM d' : 'EEE MMM d, '
+    const formattedDate = date.toFormat(format);
     const humidity = data.humidity
     const pressure = data.pressure
     const windSpeed = data.windSpeed
@@ -49,7 +50,7 @@ const ForecastCard = ({data}: ForecastCardProps) => {
     
   return (
     <div className={forecastCardClasses}>
-        <div className='forecast-day-hour'>{moment(date).format('dddd, D MMM')} {hour}</div>
+        <div className='forecast-day-hour'>{formattedDate} {hour}</div>
         <img src={weatherIcons[icon]} alt="weather-icon" className='forecast-weather-icon' />
         <div className='weather-data-forecast'>
             <div className='forecast-pressure-humidity'>

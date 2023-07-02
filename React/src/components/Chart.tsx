@@ -12,6 +12,7 @@ import { useSelector } from 'react-redux'
 import { weatherDataSelector } from '../redux/slices/weather'
 import { useEffect, useState } from 'react'
 import { filterSelector } from '../redux/slices/filter'
+import { DateTime } from 'luxon';
 
 interface Accumulator {
     labels: string[],
@@ -48,7 +49,8 @@ const Chart = () => {
     const getforecastDailyData = () => {
         return forecastDaily.reduce((acc: Accumulator, forecast) => {
             const temperature = forecast.temperature
-            const label = forecast.date //Acá es hour con forecast hourly
+            const date = DateTime.fromFormat(forecast.date, 'M/d/yyyy', { locale: 'en-US' })
+            const label = date.toFormat('EEEE, MMM d');
             acc.labels = [...acc.labels, label]
             acc.data = [...acc.data, temperature]
             acc.max = Math.max(acc.max, temperature)
@@ -60,7 +62,8 @@ const Chart = () => {
     const getforecastHourlyData = () => {
         return forecastHourly.set1.reduce((acc: Accumulator, forecast) => {
             const temperature = forecast.temperature
-            const label = forecast.hour //Acá es hour con forecast hourly
+            const date = DateTime.fromFormat(forecast.date, 'M/d/yyyy', { locale: 'en-US' })
+            const label = date.toFormat('EEE MMM d, ') + forecast.hour;
             acc.labels = [...acc.labels, label]
             acc.data = [...acc.data, temperature]
             acc.max = Math.max(acc.max, temperature)
