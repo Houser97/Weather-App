@@ -1,3 +1,4 @@
+import moment from 'moment'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { units } from '../assets/constants'
@@ -13,6 +14,7 @@ interface ForecastCardProps {
 }
 
 const ForecastCard = ({data}: ForecastCardProps) => {
+    moment.locale('en');
 
     const windowSize = useWindowSize()
 
@@ -35,7 +37,8 @@ const ForecastCard = ({data}: ForecastCardProps) => {
         ${forecastOption !== 'hourly' && windowSize.width < 2560 && 'daily-sm'}`)
     }, [forecastOption, windowSize.width])
 
-    const dayHour = 'hour' in data ? data.hour : data.day
+    const hour = 'hour' in data ? data.hour : '' 
+    const date = data.date
     const humidity = data.humidity
     const pressure = data.pressure
     const windSpeed = data.windSpeed
@@ -46,7 +49,7 @@ const ForecastCard = ({data}: ForecastCardProps) => {
     
   return (
     <div className={forecastCardClasses}>
-        <div className='forecast-day-hour'>{dayHour}</div>
+        <div className='forecast-day-hour'>{moment(date).format('dddd, D MMM')} {hour}</div>
         <img src={weatherIcons[icon]} alt="weather-icon" className='forecast-weather-icon' />
         <div className='weather-data-forecast'>
             <div className='forecast-pressure-humidity'>
