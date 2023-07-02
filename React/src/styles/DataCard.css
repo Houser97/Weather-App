@@ -1,7 +1,6 @@
 .datacard-container {
     display: flex;
     flex-direction: column;
-    width: 330px;
     row-gap: 3px;
     background-color: white;
     border-radius: 10px;
@@ -9,7 +8,9 @@
     padding-bottom: 10px;
     font-family: 'Lato', sans-serif;
     color: gray;
-    max-height: 280px;
+    /*max-height: 280px;*/
+    height: 100%;
+    width: 100%;
 }
 
 .icon-value {
@@ -20,7 +21,7 @@
 }
 
 .icon-value img {
-    width: 35%;
+    width: 30%;
     height: auto;
 }
 
@@ -40,4 +41,14 @@
 
 .sunrise-hour{
     font-weight: bold;
+}
+
+@media (max-width: 400px) {
+    .datacard-container {
+        padding: 10px 20px;
+    }
+
+    .sunrise-sunset-value{
+        font-size: 24px;
+    }
 }
