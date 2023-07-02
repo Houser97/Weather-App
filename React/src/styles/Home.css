@@ -5,3 +5,10 @@
     overflow: hidden;
     width: 100%;
 }
+
+@media (max-width: 1500px) {
+    .Home-container{
+        border-radius: 0px;
+    }    
+}
+  
