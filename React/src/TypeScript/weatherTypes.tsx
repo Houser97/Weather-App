@@ -45,6 +45,7 @@ export interface hourlyForecast extends forecastType {
 }
 
 export interface hourlyType {
+    [index: string]: hourlyForecast[], // Signature Index para dinámicamente acceder a keys en getforecastHourlyData()
     set1: hourlyForecast[],
     set2: hourlyForecast[],
     set3: hourlyForecast[],
