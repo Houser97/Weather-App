@@ -1,5 +1,13 @@
 .chart-container {
-    width: 100% !important;
-    height: 500px !important;
+    flex: 1; /*Se usa en lugar de width, ya que width empuja extra data, haciendo que el Dashboard se desborde*/
+    /*max-width: 1300px;
+    height: 500px !important;*/
     padding-right: 50px;
+    height: 100%;
+}
+
+@media (max-width: 850px) {
+    .chart-container {
+        display: none;
+    }
 }
