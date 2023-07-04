@@ -3,8 +3,8 @@
     flex-flow: column;
     width: 100%;
     max-width: 100%;
-    height: 100%;
     justify-content: space-between;
+    align-items: center;
     padding: 50px 20px;
     row-gap: 20px;
     overflow: hidden; /*Previene que el Dashboard se expanda horizontralmente*/
@@ -21,9 +21,49 @@
     width: 100%;
 }
 
-.chart-extradata-container{
-    display: flex;
+.dashboard-forecast-container-sm{
+    display: grid;
+    grid-template-columns: minmax(0px, 1fr);
+    grid-template-rows: repeat(auto-fit, minmax(max-content, 1fr));
+    gap: 30px;
     flex-direction: row;
-    align-items: center;
+    justify-content: space-evenly;
+    padding: 20px;
     width: 100%;
+}
+
+.chart-extradata-container{
+    display: grid;
+    grid-template-columns: minmax(900px, 1300px) minmax(0px, 1fr);
+    width: 100%;
+}
+
+.dashboard-container .Search-form {
+    display: none;
+    margin: 10px 0px;
+    margin-top: 20px;
+}
+
+.dashboard-container .Search-form {
+    width: 400px;
+    border-radius: 10x;
+    background-color: white;
+    overflow: hidden;
+}
+
+.dashboard-container .Search-form input{
+    border-radius: 10x;
+    overflow: hidden;
+}
+
+@media (max-width: 2400px) {
+    .chart-extradata-container{
+        display: grid;
+        grid-template-columns: minmax(0px, 1fr);
+        grid-template-rows: repeat(auto-fit, minmax(300px, 1fr));
+    }
+    
+    .dashboard-container .Search-form {
+        display: flex;
+    }
 }
