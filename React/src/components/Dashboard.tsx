@@ -9,8 +9,10 @@ import Carousel from './Carousel'
 import Chart from './Chart'
 import ExtraData from './ExtraData'
 import FilterOptions from './FilterOptions'
+import SidebarSM from './SidebarSM'
 
 const widthWindow = 2560
+const widthWindowSM = 850
 
 const Dashboard = () => {
 
@@ -21,14 +23,21 @@ const Dashboard = () => {
   const { forecastDaily, forecastHourly, current } = useSelector(weatherDataSelector)
 
   const [showCarousel, setShowCarousel] = useState(windowSize.width < widthWindow || forecastOption == 'hourly')
+  const [showForecastSM, setShowForecastSM] = useState(windowSize.width < widthWindow)
 
   useEffect(() => {
-    setShowCarousel(windowSize.width < widthWindow || forecastOption == 'hourly')
+    if(windowSize.width < widthWindowSM){
+      setShowCarousel(false)
+      setShowForecastSM(true)
+    } else {
+      setShowCarousel(windowSize.width < widthWindow || forecastOption == 'hourly')
+      setShowForecastSM(false)
+    }
   }, [windowSize.width, forecastOption])
    
   const CardNoCarousel = () => {
     return(
-      <div className='dashboard-forecast-container'>
+      <div className={`${showForecastSM ? 'dashboard-forecast-container-sm':'dashboard-forecast-container'}`}>
           {
             forecastOption === 'daily' ? getforecastDailyData(forecastDaily, current) : getforecastHourlyData(forecastHourly, current)
           }
@@ -39,11 +48,13 @@ const Dashboard = () => {
   return (
     <div className='dashboard-container'>
       <FilterOptions />
-      {showCarousel ? <Carousel /> : CardNoCarousel()}
+      <SidebarSM />
+      {showCarousel ? <Carousel /> : !showForecastSM && CardNoCarousel()}
       <div className='chart-extradata-container'>
         <Chart />
         <ExtraData />
       </div>
+      {showForecastSM && CardNoCarousel()}
     </div>
   )
 }
