@@ -1,13 +1,28 @@
+.chart__forecastSelector {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.chart-set-selector {
+    position: absolute;
+    top: 0;
+}
+
 .chart-container {
     flex: 1; /*Se usa en lugar de width, ya que width empuja extra data, haciendo que el Dashboard se desborde*/
     /*max-width: 1300px;
     height: 500px !important;*/
+    width: 100%;
     padding-right: 50px;
     height: 100%;
 }
 
 @media (max-width: 850px) {
-    .chart-container {
+    .chart-container,
+    .chart__forecastSelector {
         display: none;
     }
 }
