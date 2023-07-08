@@ -6,13 +6,13 @@ import {
     CategoryScale,
     LinearScale,
     PointElement,
-    Filler
 } from 'chart.js'
 import { useSelector } from 'react-redux'
 import { weatherDataSelector } from '../redux/slices/weather'
-import { useEffect, useState } from 'react'
+import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { filterSelector } from '../redux/slices/filter'
 import { DateTime } from 'luxon';
+import ForecastSetSelector from './ForecastSetSelector'
 
 interface Accumulator {
     labels: string[],
@@ -21,17 +21,21 @@ interface Accumulator {
     min: number
 }
 
+interface setSelectorProp {
+    setCurrentSet: Dispatch<SetStateAction<string>>
+    currentSet: string
+}
+
 ChartJS.register(
     LineElement,
     CategoryScale,
     LinearScale,
     PointElement,
-    //Filler,
 )
 
 const ChartMinMaxOffset = 1
 
-const Chart = () => {
+const Chart = ({setCurrentSet, currentSet}: setSelectorProp) => {
 
     const { forecastOption } = useSelector(filterSelector)
 
@@ -60,7 +64,7 @@ const Chart = () => {
     }
 
     const getforecastHourlyData = () => {
-        return forecastHourly.set1.reduce((acc: Accumulator, forecast) => {
+        return forecastHourly[currentSet].reduce((acc: Accumulator, forecast) => {
             const temperature = forecast.temperature
             const date = DateTime.fromFormat(forecast.date, 'M/d/yyyy', { locale: 'en-US' })
             const label = date.toFormat('EEE MMM d, ') + forecast.hour;
@@ -81,7 +85,7 @@ const Chart = () => {
       setMaxValue(Math.ceil(data.max + ChartMinMaxOffset))
       setMinValue(Math.ceil(data.min - ChartMinMaxOffset))
     
-    }, [current.city, forecastOption, current.units])
+    }, [current.city, forecastOption, current.units, currentSet])
     
 
     const data = {
@@ -133,8 +137,13 @@ const Chart = () => {
     }
 
   return (
-    <div className='chart-container'>
-        <Line data={data} options={options}></Line>
+    <div className='chart__forecastSelector'>
+        <div className='chart-set-selector'>
+            <ForecastSetSelector setCurrentSet={setCurrentSet} currentSet = {currentSet} visible = {forecastOption === 'hourly'} />
+        </div>
+        <div className='chart-container'>
+            <Line data={data} options={options}></Line>
+        </div>
     </div>
   )
 }
