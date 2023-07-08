@@ -1,0 +1,67 @@
+.weather-data-container-SM {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    border-radius: 20px;
+    margin: 30px 0px;
+    padding: 0px 10px;
+    background-color: white;
+}
+
+.weather-data-container-SM .icon {
+    width: 400px;
+}
+
+.weather-data{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.weather-data .temp-day-hour {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.weather-data .temperature-container {
+    justify-content: center;
+    align-items: center;
+}
+
+.weather-data-container-SM .extra-data-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    column-gap: 10px;
+    border: none;
+    justify-content: center;
+}
+
+@media (max-width: 1400px) {
+    .weather-data-container-SM {
+        display: flex;
+    }
+}
+
+@media (max-width: 650px) {
+    .weather-data-container-SM .icon {
+        width: 50%;
+    }
+}
+
+@media (max-width: 450px) {
+    .weather-data .temperature {
+        font-size: 50px;
+    }
+
+    .weather-data .unit {
+        font-size: 30px;
+    }
+}
