@@ -9,7 +9,10 @@ import Carousel from './Carousel'
 import Chart from './Chart'
 import ExtraData from './ExtraData'
 import FilterOptions from './FilterOptions'
+import Search from './Search'
+import Sidebar from './Sidebar'
 import SidebarSM from './SidebarSM'
+import WeatherDataSM from './WeatherDataSM'
 
 const widthWindow = 2560
 const widthWindowSM = 850
@@ -49,11 +52,14 @@ const Dashboard = () => {
     <div className='dashboard-container'>
       <FilterOptions />
       <SidebarSM />
+      <h1 className="title title-forecast">Forecast</h1>
       {showCarousel ? <Carousel /> : !showForecastSM && CardNoCarousel()}
+      <h1 className="title">Weather Data</h1>
       <div className='chart-extradata-container'>
         <Chart />
         <ExtraData />
       </div>
+      <h1 className="title-SM">Forecast</h1>
       {showForecastSM && CardNoCarousel()}
     </div>
   )
