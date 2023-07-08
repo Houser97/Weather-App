@@ -9,11 +9,9 @@ import Carousel from './Carousel'
 import Chart from './Chart'
 import ExtraData from './ExtraData'
 import FilterOptions from './FilterOptions'
-import Search from './Search'
 import ForecastSetSelector from './ForecastSetSelector'
-import Sidebar from './Sidebar'
+import Loading from './Loading'
 import SidebarSM from './SidebarSM'
-import WeatherDataSM from './WeatherDataSM'
 
 const widthWindow = 2560
 const widthWindowSM = 850
@@ -24,7 +22,7 @@ const Dashboard = () => {
 
   const { forecastOption } = useSelector(filterSelector)
 
-  const { forecastDaily, forecastHourly, current } = useSelector(weatherDataSelector)
+  const { forecastDaily, forecastHourly, current, isLoading } = useSelector(weatherDataSelector)
 
   const [showCarousel, setShowCarousel] = useState(windowSize.width < widthWindow || forecastOption == 'hourly')
   const [showForecastSM, setShowForecastSM] = useState(windowSize.width < widthWindow)
@@ -58,10 +56,10 @@ const Dashboard = () => {
       <FilterOptions />
       <SidebarSM />
       <h1 className="title title-forecast">Forecast</h1>
-      {showCarousel ? <Carousel /> : !showForecastSM && CardNoCarousel()}
+      {isLoading ? <Loading /> : showCarousel ? <Carousel /> : !showForecastSM && CardNoCarousel()}
       <h1 className="title">Weather Data</h1>
       <div className='chart-extradata-container'>
-        <Chart />
+        <Chart setCurrentSet={setCurrentSet} currentSet={currentSet} />
         <ExtraData />
       </div>
       <h1 className="title-SM">Forecast</h1>

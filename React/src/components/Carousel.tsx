@@ -8,6 +8,7 @@ import { weatherDataSelector } from "../redux/slices/weather";
 import { getforecastDailyData, getforecastHourlyData } from "../assets/FormatFunctions";
 import useWindowSize from "../assets/hooks/windowSize";
 import { useEffect, useState } from "react";
+import Loading from "./Loading";
 
 const widthWindow = 2560
 
@@ -16,7 +17,7 @@ const Carousel = () => {
     const windowSize = useWindowSize()
 
     const { forecastOption } = useSelector(filterSelector)
-    const { forecastDaily, forecastHourly, current } = useSelector(weatherDataSelector)
+    const { forecastDaily, forecastHourly, current, isLoading } = useSelector(weatherDataSelector)
 
     const CarouselInitialOptions = {
       slidesToScroll: forecastOption === 'daily' ? 2 : 7,
@@ -58,11 +59,16 @@ const Carousel = () => {
 
   return (
     <div className='carousel-container'>
-        <Slider {...settings} className = "carousel">
+        {
+          isLoading 
+          ? <Loading /> 
+          :         
+          <Slider {...settings} className = "carousel">
             {
             forecastOption === 'daily' ? getforecastDailyData(forecastDaily, current) : getforecastHourlyData(forecastHourly, current)
             }
-        </Slider>
+          </Slider>
+        }
     </div>
   )
 }
