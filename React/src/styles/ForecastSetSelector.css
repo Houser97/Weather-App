@@ -1,0 +1,25 @@
+.set__selector {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.hide__selector{
+    display: none;
+}
+
+.button__set{
+    border-radius: 50%;
+    background-color: white;
+    color: gray;
+    border: none;
+    height: 40px;
+    width: 40px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.set__selected{
+    color: white;
+    background-color: black;
+}
