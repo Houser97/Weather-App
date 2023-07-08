@@ -21,3 +21,10 @@ body {
 input::placeholder{
   color: black;
 }
+
+h1 {
+  color: gray;
+  font-family: 'Lato', sans-serif;
+  margin: 0;
+  padding: 0;
+}
