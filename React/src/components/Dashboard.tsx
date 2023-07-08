@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { getforecastDailyData, getforecastHourlyData } from '../assets/FormatFunctions'
+import { getforecastDailyData, getforecastHourlyData, getforecastHourlyDataSM } from '../assets/FormatFunctions'
 import useWindowSize from '../assets/hooks/windowSize'
 import { filterSelector } from '../redux/slices/filter'
 import { weatherDataSelector } from '../redux/slices/weather'
@@ -10,6 +10,7 @@ import Chart from './Chart'
 import ExtraData from './ExtraData'
 import FilterOptions from './FilterOptions'
 import Search from './Search'
+import ForecastSetSelector from './ForecastSetSelector'
 import Sidebar from './Sidebar'
 import SidebarSM from './SidebarSM'
 import WeatherDataSM from './WeatherDataSM'
@@ -27,6 +28,7 @@ const Dashboard = () => {
 
   const [showCarousel, setShowCarousel] = useState(windowSize.width < widthWindow || forecastOption == 'hourly')
   const [showForecastSM, setShowForecastSM] = useState(windowSize.width < widthWindow)
+  const [currentSet, setCurrentSet] = useState('set1')
 
   useEffect(() => {
     if(windowSize.width < widthWindowSM){
@@ -40,11 +42,14 @@ const Dashboard = () => {
    
   const CardNoCarousel = () => {
     return(
-      <div className={`${showForecastSM ? 'dashboard-forecast-container-sm':'dashboard-forecast-container'}`}>
-          {
-            forecastOption === 'daily' ? getforecastDailyData(forecastDaily, current) : getforecastHourlyData(forecastHourly, current)
-          }
-      </div>
+      <>
+        <ForecastSetSelector setCurrentSet={setCurrentSet} currentSet = {currentSet} visible = {showForecastSM && forecastOption === 'hourly'} />
+        <div className={`${showForecastSM ? 'dashboard-forecast-container-sm':'dashboard-forecast-container'}`}>
+            {
+              forecastOption === 'daily' ? getforecastDailyData(forecastDaily, current) : showForecastSM ? getforecastHourlyDataSM(forecastHourly, current, currentSet)  : getforecastHourlyData(forecastHourly, current)
+            }
+        </div>
+      </>
     )
   }
 
