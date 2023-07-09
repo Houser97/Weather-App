@@ -98,13 +98,10 @@ export const fetchWeatherData = async (city: string, units = 'metric') => {
         humidity: forecast.humidity,
         windSpeed: forecast.wind_speed,
         units,
-        hour: getHourFromDT(dt, timezone)
         }
         forecastData.push(data)
         sunsetSunriseData[date] = {sunrise, sunset}
     }
-
-    console.table(forecastData, ['dt', 'sunrise', 'sunset', 'hour'])
 
     const forecastDataHourly: hourlyType = {set1: [], set2: [], set3:[], set4:[]}
     hourly.map((forecast: any, index: number) => {
