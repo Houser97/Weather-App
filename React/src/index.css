@@ -19,12 +19,13 @@ body {
 }
 
 input::placeholder{
-  color: black;
+  color: var(--text-color);
 }
 
 h1 {
-  color: gray;
+  color: var(--text-color);
   font-family: 'Lato', sans-serif;
-  margin: 0;
+  margin: 10px 0px;
   padding: 0;
+  font-size: 40px;
 }
