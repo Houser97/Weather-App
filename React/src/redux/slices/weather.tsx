@@ -78,7 +78,7 @@ const initialState: weatherDataType = {
     forecastDaily: forecastDailyInitialValue,
     forecastHourly: forecastHourlyInitialValue,
     hasData: false,
-    isLoading: false,
+    isLoading: true,
     isCityValid: true
 }
 
@@ -86,9 +86,6 @@ export const weatherSlice = createSlice({
     name: 'weather',
     initialState,
     reducers: {
-        getWeatherData: (state) => {
-            state.isLoading = true
-        },
         getDataSuccess: (state, {payload}) => {
             state.current = payload.current
             state.forecastDaily = payload.forecast
@@ -97,8 +94,8 @@ export const weatherSlice = createSlice({
             state.hasData = true
             state.isCityValid = true
         },
-        setIsLoading: (state) => {
-            state.isLoading = false
+        setIsLoading: (state, {payload}) => {
+            state.isLoading = payload
         },
         getDataFailure: (state) => {
             state.hasData = false //Trabajar en este reducer, pendiente.
@@ -110,7 +107,6 @@ export const weatherSlice = createSlice({
 })
 
 export const {
-    getWeatherData,
     getDataSuccess,
     setIsLoading,
     getDataFailure,
@@ -126,8 +122,6 @@ export default weatherSlice.reducer
 //Se define función que busca la data del clima. Esta función estaba anteriormente en el componente de Search.
 export const fetchWeatherDataRedux = (city: string, tempUnit: string) => {
     return async (dispatch: Dispatch) => {
-        dispatch(getWeatherData())
-
         try{
             const weatherData = await fetchWeatherData(city, tempUnit)
             // Si las coordenadas no son válidas fetchWeatherData retorna false
@@ -137,7 +131,7 @@ export const fetchWeatherDataRedux = (city: string, tempUnit: string) => {
                 dispatch(setCityValidation({cityValidation: true}))
             } else {
                 dispatch(setCityValidation({cityValidation: false}))
-                dispatch(setIsLoading())
+                dispatch(setIsLoading({value: false}))
             }
         } catch(error){
             dispatch(getDataFailure())
