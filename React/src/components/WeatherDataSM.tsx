@@ -3,6 +3,7 @@ import { weatherIcons } from '../assets/weatherIcons'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { weatherDataSelector } from '../redux/slices/weather'
+import { weatherDataArray } from '../assets/constants'
 
 const WeatherDataSM = () => {
 
@@ -31,6 +32,7 @@ const WeatherDataSM = () => {
                     <span>{hasData && current.day},</span>
                     <span className='hour'>{hasData && current.hour}</span>
                 </div>
+                <div className='city'>{hasData && current.city}</div>
             </div>
         </div>
         <div className='extra-data-container'>
@@ -38,12 +40,18 @@ const WeatherDataSM = () => {
                 <img src={weatherIcons[icon]} alt="icon" className='icon-extra-data' />
                 <span>{hasData && current.description}</span>
             </div>
-            <div className='description-icon'>
-                <img src={weatherIcons['Humidity']} alt="icon" className='icon-extra-data' />
-                <span>Humidity</span>
-                <span>-</span>
-                <span>{hasData && current.humidity}%</span>
-            </div>
+            {
+                weatherDataArray.map(({icon, name}) => {
+                    return(
+                    <div className='description-icon' key={name}>
+                        <img src={weatherIcons[icon]} alt="icon" className='icon-extra-data' />
+                        <span>{name} </span>
+                        <span> - </span>
+                        <span> {hasData && current.pressure}%</span>
+                    </div>
+                    )
+                })
+            }
         </div>
     </div>
   )
