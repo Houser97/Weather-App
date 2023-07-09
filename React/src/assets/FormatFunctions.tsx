@@ -21,3 +21,11 @@ export const getforecastHourlyData = (forecastHourly: hourlyType, current: curre
         )
     })
 }
+
+export const getforecastHourlyDataSM = (forecastHourly: hourlyType, current: currentType, currentSet: string) => {
+  return forecastHourly[currentSet].map((forecastData, index) => {
+      return(
+      <ForecastCard data={forecastData} key={`forecast-hourly-${currentSet}-${index}-${current.city}`} />
+      )
+  })
+}
