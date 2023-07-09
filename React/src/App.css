@@ -1,5 +1,35 @@
 .app{
-  min-width: 100vw;
+  width: 100vw;
   min-height: 100vh;
   background-color: rgb(122, 122, 122);
+  padding: 50px;
+  display: flex;
+
+  --card-background: white;
+  --text-color: gray;
+  --body-background: rgb(122, 122, 122);
+  --dashboard-background: rgb(241, 241, 241);
+  --sidebar-color: white;
+  --carousel-arrow-color: rgb(121, 121, 121);
+  --metric-button-background: white;
+  --metric-button-background-selected: black;
+  --carousel-dots-color: black;
+}
+
+.dark{
+  --card-background: rgb(58, 58, 58);
+  --text-color: white;
+  --body-background: rgb(0, 0, 0);
+  --dashboard-background: rgb(35, 35, 35);
+  --sidebar-color: rgb(28, 24, 24);
+  --carousel-arrow-color: white;
+  --metric-button-background: rgb(58, 58, 58);
+  --metric-button-background-selected: white;
+  --carousel-dots-color: white;
+}
+
+@media (max-width: 1600px) {
+  .app {
+    padding: 0px;
+  }
 }
