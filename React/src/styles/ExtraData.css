@@ -8,3 +8,10 @@
     grid-template-rows: repeat(auto-fit, minmax(min-content, max-content));
     grid-auto-rows: minmax(min-content, max-content);
 }
+
+/*Permite hacer el ancho más pequeño para que se ajusta a pantallas más chicas.*/
+@media (max-width: 400px) {
+    .extraData-container{
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+}

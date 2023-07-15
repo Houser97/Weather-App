@@ -45,13 +45,6 @@
     margin-top: 20px;
 }
 
-.dashboard-container .Search-form {
-    width: 400px;
-    border-radius: 10x;
-    background-color: white;
-    overflow: hidden;
-}
-
 .dashboard-container .Search-form input{
     border-radius: 10x;
     overflow: hidden;
@@ -66,7 +59,7 @@
     .chart-extradata-container{
         display: grid;
         grid-template-columns: minmax(0px, 1fr);
-        grid-template-rows: repeat(auto-fit, minmax(300px, 1fr));
+        grid-template-rows: repeat(auto-fit, minmax(500px, 1fr));
     }
     
     .dashboard-container .Search-form {
@@ -78,6 +71,10 @@
     .title {
         display: flex;
     }   
+
+    .dashboard-container {
+        padding-top: 100px;
+    }
 }
 
 @media (max-width: 850px) {
