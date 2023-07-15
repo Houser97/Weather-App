@@ -120,14 +120,19 @@ const Chart = ({setCurrentSet, currentSet}: setSelectorProp) => {
                 grid: {
                     display: false,
                 },
-
+                ticks: {
+                    color: 'gray', // Cambia el color de las etiquetas del eje X
+                    fontColor: 'gray' // Cambia el color del texto de las etiquetas del eje X
+                },
             },
             y: {
                 min: minValue,
                 max: maxValue,
                 ticks: {
                     stepSize: 2,
-                    callback: (value: number) => value + units
+                    callback: (value: number) => value + units,
+                    color: 'gray', // Cambia el color de las etiquetas del eje X
+                    fontColor: 'gray' // Cambia el color del texto de las etiquetas del eje X
                 },
                 grid: {
                     display: false
