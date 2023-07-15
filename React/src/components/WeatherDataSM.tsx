@@ -3,12 +3,14 @@ import { weatherIcons } from '../assets/weatherIcons'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { weatherDataSelector } from '../redux/slices/weather'
-import { weatherDataArray } from '../assets/constants'
+import { units, weatherDataArray } from '../assets/constants'
+import { filterSelector } from '../redux/slices/filter'
 
 const WeatherDataSM = () => {
 
   const [icon, setIcon] = useState<string>('Clear')
   const {current, hasData} = useSelector(weatherDataSelector)
+  const { metricOptions } = useSelector(filterSelector)
   const tempUnit = current.units === 'metric' ? '°C' : '°F'
 
   useEffect(() => {
@@ -41,13 +43,13 @@ const WeatherDataSM = () => {
                 <span>{hasData && current.description}</span>
             </div>
             {
-                weatherDataArray.map(({icon, name}) => {
+                weatherDataArray.map(({icon, name, variable}) => {
                     return(
                     <div className='description-icon' key={name}>
                         <img src={weatherIcons[icon]} alt="icon" className='icon-extra-data' />
                         <span>{name} </span>
                         <span> - </span>
-                        <span> {hasData && current.pressure}%</span>
+                        <span> {hasData && current.pressure}{' '}{units[metricOptions][variable]}</span>
                     </div>
                     )
                 })
