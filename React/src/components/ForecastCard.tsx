@@ -27,7 +27,7 @@ const ForecastCard = ({data}: ForecastCardProps) => {
     const { current } = useSelector(weatherDataSelector) // Se ocupa para extraer las unidades a usar.
     const { forecastOption, metricOptions } = useSelector(filterSelector)
 
-    const [icon, setIcon] = useState<string>('Clear')
+    const [icon, setIcon] = useState<string>('')
     const [forecastCardClasses, setForecastCardClasses] = useState(`forecast-card ${forecastOption === 'hourly' && 'hourly'} 
     ${forecastOption !== 'hourly' && windowSize.width < 2560 && 'daily-sm'}`)
 

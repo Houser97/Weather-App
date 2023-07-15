@@ -15,7 +15,7 @@ const Search = () => {
     const { metricOptions } = useSelector(filterSelector)
 
     const [showDeleteBtn, setShowDeleteBtn] = useState(false)
-    const [city, setCity] = useState('Puebla')
+    const [city, setCity] = useState('')
 
     useEffect(() => {
         if(city === '') return undefined;
