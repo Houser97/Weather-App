@@ -16,7 +16,8 @@ const ForecastSetSelector = ({setCurrentSet, currentSet, visible}: setSelectorPr
                 return(
                     <button 
                      className={`button__set ${currentSet === set && 'set__selected'}`}
-                     onClick={() => setCurrentSet(set)}>
+                     onClick={() => setCurrentSet(set)}
+                     key={`button-set-${number}`}>
                         {number}
                     </button>
                 )
