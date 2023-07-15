@@ -20,26 +20,47 @@ export const forecastDailySet = [
     },
 ]
 
-export const units = {
-    pressure: 'hPa',
-    humidity: '%',
-    wind_metric: 'km/h',
-    wind_imperial: 'mph',
-    temp_metric: '°C',
-    temp_imperial: '°F',
+interface unitsType {
+    [index: string]: unitType
+}
+
+interface unitType {
+    [index: string]: string,
+    pressure: string,
+    humidity: string,
+    wind: string,
+    temperature: string,
+}
+
+export const units: unitsType = {
+    metric: {
+        pressure: 'hPa',
+        humidity: '%',
+        wind: 'km/h',
+        temperature: '°C',
+    },
+    imperial: {
+        pressure: 'hPa',
+        humidity: '%',
+        wind: 'mph',
+        temperature: '°F',
+    }
 }
 
 export const weatherDataArray = [
     {
         icon: 'Humidity',
-        name: 'Humidity'
+        name: 'Humidity',
+        variable: 'humidity'
     },
     {
         icon: 'WindSpeed',
-        name: 'Wind Speed'
+        name: 'Wind Speed',
+        variable: 'wind'
     },
     {
         icon: 'Barometer',
-        name: 'Pressure'
+        name: 'Pressure',
+        variable: 'pressure'
     }
 ]
