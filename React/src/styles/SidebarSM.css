@@ -1,0 +1,31 @@
+.siderbarSM-container {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.siderbarSM-container .Search-form {
+    width: 400px;
+    border-radius: 10x;
+    background-color: var(--card-background);
+    overflow: hidden;
+}
+
+.siderbarSM-container .Search-form input{
+    border-radius: 10x;
+    overflow: hidden;
+
+}
+
+@media (max-width: 1400px) {
+    .siderbarSM-container {
+        display: flex;
+    }
+}
+
+@media (max-width: 500px) {
+    .siderbarSM-container .Search-form {
+        width: 80%;
+    }
+}
