@@ -1,12 +1,12 @@
 .Home-container{
-    background-color: rgb(241, 241, 241);
+    background-color: var(--dashboard-background);
     border-radius: 50px;
     display: flex;
     overflow: hidden;
     width: 100%;
 }
 
-@media (max-width: 1500px) {
+@media (max-width: 1600px) {
     .Home-container{
         border-radius: 0px;
     }    

@@ -28,5 +28,10 @@
 }
 
 .slick-next:before, .slick-prev:before{
-    color: rgb(121, 121, 121) !important;
+    color: var(--carousel-arrow-color) !important;
+}
+
+.slick-dots button::before {
+    color: var(--carousel-dots-color) !important;
+    font-size: 10px !important;
 }

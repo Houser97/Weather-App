@@ -10,8 +10,8 @@
 
 .button__set{
     border-radius: 50%;
-    background-color: white;
-    color: gray;
+    background-color: var(--metric-button-background);
+    color: var(--metric-button-background-selected);;
     border: none;
     height: 40px;
     width: 40px;
@@ -20,6 +20,6 @@
 }
 
 .set__selected{
-    color: white;
-    background-color: black;
+    color: var(--metric-button-background);
+    background-color: var(--metric-button-background-selected);
 }

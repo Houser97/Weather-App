@@ -2,12 +2,12 @@
     display: flex;
     flex-direction: column;
     row-gap: 3px;
-    background-color: white;
+    background-color: var(--card-background);
     border-radius: 10px;
     padding: 30px 20px;
     padding-bottom: 10px;
     font-family: 'Lato', sans-serif;
-    color: gray;
+    color: var(--text-color);
     /*max-height: 280px;*/
     height: 100%;
     width: 100%;
@@ -26,7 +26,7 @@
 }
 
 .datacard-container h3 {
-    color: gray;
+    color: var(--text-color);
     margin: 5px;
     width: 100%;
     font-size: 24px;
@@ -36,11 +36,17 @@
 .sunrise-sunset-value{
     font-size: 28px;
     font-weight: bold;
-    color: gray;
+    color: var(--text-color);
 }
 
 .sunrise-hour{
     font-weight: bold;
+}
+
+@media (max-width: 700px) {
+    .icon-value {
+        justify-content: center;
+    }
 }
 
 @media (max-width: 400px) {
@@ -50,5 +56,9 @@
 
     .sunrise-sunset-value{
         font-size: 24px;
+    }
+
+    .icon-value {
+        justify-content: flex-start;
     }
 }

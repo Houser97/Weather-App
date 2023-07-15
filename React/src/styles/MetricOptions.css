@@ -9,20 +9,20 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    color: black;
+    color: var(--metric-button-background-selected);
     border-radius: 50%;
     font-weight: bolder;
     font-size: 25px;
     width: 48px;
     height: 48px;
-    background-color: white;
+    background-color: var(--metric-button-background);
     transition: all 300ms ease-in-out;
     cursor: pointer;
 }
 
 .metric-option.selected {
-    background-color: black;
-    color: white;
+    background-color: var(--metric-button-background-selected);
+    color: var(--metric-button-background);
 }
 
 @media (max-width: 500px) {
