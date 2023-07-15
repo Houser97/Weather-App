@@ -7,7 +7,8 @@
     border-radius: 20px;
     margin: 30px 0px;
     padding: 0px 10px;
-    background-color: white;
+    background-color: var(--card-background);
+    color: var(--text-color);
 }
 
 .weather-data-container-SM .icon {
@@ -42,6 +43,7 @@
     column-gap: 10px;
     border: none;
     justify-content: center;
+    padding: 10px;
 }
 
 @media (max-width: 1400px) {
@@ -54,6 +56,11 @@
     .weather-data-container-SM .icon {
         width: 50%;
     }
+
+    .weather-data-container-SM .city {
+        font-size: 28px;
+        margin-top: 10px;
+    }
 }
 
 @media (max-width: 450px) {
@@ -63,5 +70,14 @@
 
     .weather-data .unit {
         font-size: 30px;
+    }
+
+    .weather-data-container-SM .icon {
+        width: 70%;
+    }
+
+    .weather-data-container-SM .day-hour-container, 
+    .weather-data-container-SM .hour {
+        font-size: 34px !important;
     }
 }
