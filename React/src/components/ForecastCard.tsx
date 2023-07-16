@@ -65,9 +65,9 @@ const ForecastCard = ({data}: ForecastCardProps) => {
         <div className='weather-data-forecast'>
             <div className='forecast-pressure-humidity'>
             {
-                weatherDataArray.map(({icon, variable}) => {
+                weatherDataArray.map(({icon, variable}, index) => {
                     return(
-                        <span>
+                        <span key={`forecast-card-${hour}-${variable}.${index}`}>
                             <img src={weatherIcons[icon]} alt="icon" />
                             {value[variable]} {units[metricOptions][variable]}
                         </span>
