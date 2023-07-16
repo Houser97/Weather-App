@@ -56,7 +56,7 @@ const Dashboard = () => {
       <FilterOptions />
       <SidebarSM />
       <h1 className="title title-forecast">Forecast</h1>
-      {isLoading ? <Loading /> : showCarousel ? <Carousel /> : !showForecastSM && CardNoCarousel()}
+      {isLoading && !showForecastSM ? <Loading /> : showCarousel ? <Carousel /> : !showForecastSM && CardNoCarousel()}
       <h1 className="title">Weather Data</h1>
       <div className='chart-extradata-container'>
         <Chart setCurrentSet={setCurrentSet} currentSet={currentSet} />
