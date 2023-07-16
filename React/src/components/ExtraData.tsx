@@ -1,5 +1,6 @@
 import '../styles/ExtraData.css'
 import DataCard from './DataCard'
+import Gauge from './Gauge'
 
 const data = [
   {
@@ -19,12 +20,6 @@ const data = [
     valueTarget1: 'feelsDay',
     valueTarget2: 'feelsNight',
     type: 'temperature'
-  },
-  {
-    title: 'Max & Min',
-    valueTarget1: 'min',
-    valueTarget2: 'max',
-    type: 'temperature'
   }
 ]
 
@@ -38,6 +33,7 @@ const ExtraData = () => {
           )
         })
       }
+      <Gauge />
     </div>
   )
 }
