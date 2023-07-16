@@ -42,7 +42,7 @@ export const fetchWeatherData = async (city: string, units = 'metric') => {
     const {lat, lon}: Coordinates = coords
     const weatherDataRaw = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=alerts&units=${units}&appid=a17d8aca84846ee500b328a8df181e45`, { mode: "cors" })
     const {current, daily, hourly, timezone} = await weatherDataRaw.json()
-    const {humidity, pressure, temp, visibility, wind_speed, weather, feels_like, dt, sunset, sunrise} = current
+    const {humidity, pressure, temp, visibility, wind_speed, weather, feels_like, dt, sunset, sunrise, uvi} = current
     const {day, date} = getDateFromDT(dt, timezone)
     const hour = getHourFromDT24(dt, timezone)
     const sunsetFormatted = getHourFromDT(sunset, timezone)
@@ -71,6 +71,7 @@ export const fetchWeatherData = async (city: string, units = 'metric') => {
         sunsetDt: sunset,
         sunriseDt: sunrise,
         hour,
+        uvi,
         units //Se agrega el valor del estado unitTemp para garantizar que todo se renderice al mismo
         // tiempo en lugar de que las unidades primero y luego el valor dado por la API.
     }

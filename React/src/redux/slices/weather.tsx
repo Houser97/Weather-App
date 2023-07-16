@@ -24,6 +24,7 @@ const currentInitialValue: currentType = {
     sunriseDt: 0,
     sunsetDt: 0,
     hour: '00:00',
+    uvi: 0,
     units: ''
 }
 

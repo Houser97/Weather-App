@@ -21,6 +21,7 @@ export interface currentType {
     sunsetDt: number,
     sunriseDt: number,
     hour: string,
+    uvi: number,
     units: string,
 }
 
