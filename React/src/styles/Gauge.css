@@ -7,11 +7,15 @@
   align-items: center;
   justify-content: center;
   position: relative;
+  padding: 60px 40px;
+  font-family: 'Lato', sans-serif;
+  font-weight: bold;
 }
 
 .gauge__body {
   width: 100%;
   max-width: 300px;
+  position: relative;
 }
 
 .gauge {
@@ -28,15 +32,13 @@
 
 .gauge__title{
   position: absolute;
-  top: 10px;
+  top: 20px;
   left: 20px;
   color: var(--text-color);
   margin: 5px;
   width: 100%;
   font-size: 24px;
   justify-self: flex-start;
-
-  font-family: 'Lato', sans-serif;
 }
 
 .gauge__fill {
@@ -48,7 +50,6 @@
   background-color: orange;
   transform-origin: center top;
   transition: transform 250ms ease-in-out;
-  transform: rotate(0.30turn);
 }
 
 .gauge__cover {
@@ -60,4 +61,39 @@
   transform: translateX(-50%);
   position: absolute;
   border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 25%;
+  font-size: 30px;
+  color: var(--text-color);
+}
+
+.gauge__limit-values {
+  position: absolute;
+  top: calc(100% + 5px);
+  font-size: 28px;
+  color: var(--text-color);
+}
+
+.gauge__min-value{
+  left: 5px;
+}
+
+.gauge__max-value{
+  right: 0px;
+}
+
+@media (max-width: 600px) {
+  .gauge__limit-values {
+    position: absolute;
+    top: calc(100% + 5px);
+    font-size: 22px;
+    color: var(--text-color);
+  }
+  
+  .gauge__cover {
+    font-size: 25px;
+  }
 }
