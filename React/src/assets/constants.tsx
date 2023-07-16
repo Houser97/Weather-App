@@ -49,14 +49,14 @@ export const units: unitsType = {
 
 export const weatherDataArray = [
     {
-        icon: 'Humidity',
-        name: 'Humidity',
-        variable: 'humidity'
-    },
-    {
         icon: 'WindSpeed',
         name: 'Wind Speed',
         variable: 'wind'
+    },
+    {
+        icon: 'Humidity',
+        name: 'Humidity',
+        variable: 'humidity'
     },
     {
         icon: 'Barometer',
