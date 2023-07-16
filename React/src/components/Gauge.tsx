@@ -27,6 +27,8 @@ const Gauge = () => {
           <div ref={fillRef} className="gauge__fill"></div>
           <div className="gauge__cover">{current.uvi}</div>
         </div>
+        <div className="gauge__min-value gauge__limit-values">{UVI_MIN}</div>
+        <div className="gauge__max-value gauge__limit-values">{UVI_MAX}</div>
       </div>
     </div>
   )
