@@ -1,4 +1,4 @@
-# Responsive Weather App using React, React Native, TypeScript, ChartJS and OpenWeather API
+# Responsive Weather App using React, React Native, TypeScript, Redux, ChartJS and OpenWeather API
 
 This project showcases weather-related information sourced from the OpenWeatherMap API, which is based on the user's specified city. The application provides essential weather data, including:
 
