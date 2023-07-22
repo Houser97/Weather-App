@@ -11,12 +11,12 @@ const Search = () => {
 
     const dispatch = useDispatch<AppDispatch>()
 
-    const { isCityValid } = useSelector(weatherDataSelector)
+    const { isCityValid, current } = useSelector(weatherDataSelector)
     const { metricOptions } = useSelector(filterSelector)
 
     const [showDeleteBtn, setShowDeleteBtn] = useState(false)
-    const [city, setCity] = useState('')
-    const [lastValidCity, setLastValidCity] = useState('Puebla') // Se utiliza para que botones Celisus y Farenheit puedan hacer
+    const [city, setCity] = useState(current.city)
+    const [lastValidCity, setLastValidCity] = useState(current.city) // Se utiliza para que botones Celisus y Farenheit puedan hacer
     // consultas con la última ciudad válida cuando la ciudad actual sea no válida.
 
     useEffect(() => {
@@ -28,10 +28,10 @@ const Search = () => {
     }, [metricOptions])
 
     useEffect(() => {
-        if(!isCityValid || city === '') return undefined
-        setLastValidCity(city)
+        if(!isCityValid) return undefined
+        setLastValidCity(current.city)
         setCity('')
-    }, [isCityValid])
+    }, [isCityValid, current.city])
     
 
     const isCityEmpty = (city: string) => {
