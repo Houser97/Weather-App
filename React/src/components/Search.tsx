@@ -16,10 +16,12 @@ const Search = () => {
 
     const [showDeleteBtn, setShowDeleteBtn] = useState(false)
     const [city, setCity] = useState('')
+    const [lastValidCity, setLastValidCity] = useState('Puebla') // Se utiliza para que botones Celisus y Farenheit puedan hacer
+    // consultas con la última ciudad válida cuando la ciudad actual sea no válida.
 
     useEffect(() => {
-        if(city === '') return undefined;
-        const cityCopy = city      
+        if(lastValidCity === '') return undefined;
+        const cityCopy = lastValidCity      
             .replace(/(,\s+)/g, ',') // Quitar espacios después de una coma.
             .replace(/(\s+,)/g, ',') // Quitar espacioes antes de una coma
         dispatch(fetchWeatherDataRedux(cityCopy, metricOptions));
@@ -27,6 +29,7 @@ const Search = () => {
 
     useEffect(() => {
         if(!isCityValid || city === '') return undefined
+        setLastValidCity(city)
         setCity('')
     }, [isCityValid])
     
