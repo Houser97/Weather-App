@@ -31,9 +31,9 @@ const getHourFromDT24 = (dt: number, timezone: string) => {
 }
 
 const getCityCoords = async (city: string) => {
-    const coordsDataRaw = await fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=a17d8aca84846ee500b328a8df181e45`, { mode: "cors" })
+    const coordsDataRaw = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=a17d8aca84846ee500b328a8df181e45`, { mode: "cors" })
     const coordsData = await coordsDataRaw.json()
-    return coordsData.length ? {lat: coordsData[0].lat, lon: coordsData[0].lon} : false
+    return coordsData.coord ? {lat: coordsData.coord.lat, lon: coordsData.coord.lon} : false
 }
 
 export const fetchWeatherData = async (city: string, units = 'metric') => {
