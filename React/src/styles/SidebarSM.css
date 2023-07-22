@@ -9,7 +9,6 @@
     width: 400px;
     border-radius: 10x;
     background-color: var(--card-background);
-    overflow: hidden;
 }
 
 .siderbarSM-container .Search-form input{
