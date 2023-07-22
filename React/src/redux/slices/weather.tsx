@@ -13,7 +13,7 @@ const currentInitialValue: currentType = {
     max: 0,
     lat: 0,
     lon: 0,
-    city: '',
+    city: 'Puebla',
     feels_like: 0,
     wind: 0,
     visibility: 0,
