@@ -98,9 +98,6 @@ export const weatherSlice = createSlice({
         setIsLoading: (state, {payload}) => {
             state.isLoading = payload
         },
-        getDataFailure: (state) => {
-            state.hasData = false //Trabajar en este reducer, pendiente.
-        },
         setCityValidation: (state, {payload}) => {
             state.isCityValid = payload.cityValidation
         }
@@ -110,7 +107,6 @@ export const weatherSlice = createSlice({
 export const {
     getDataSuccess,
     setIsLoading,
-    getDataFailure,
     setCityValidation
 } = weatherSlice.actions
 
@@ -127,7 +123,6 @@ export const fetchWeatherDataRedux = (city: string, tempUnit: string) => {
             const weatherData = await fetchWeatherData(city, tempUnit)
             // Si las coordenadas no son válidas fetchWeatherData retorna false
             if(weatherData){ 
-                console.log('aca')
                 const {current, forecast, hourly} = weatherData
                 dispatch(getDataSuccess({current, forecast, hourly}))
                 dispatch(setCityValidation({cityValidation: true}))
@@ -136,7 +131,8 @@ export const fetchWeatherDataRedux = (city: string, tempUnit: string) => {
                 dispatch(setIsLoading(false))
             }
         } catch(error){
-            dispatch(getDataFailure())
+            console.log(error)
+            return false
         }
     }
 }
