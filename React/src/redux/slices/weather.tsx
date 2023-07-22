@@ -127,12 +127,13 @@ export const fetchWeatherDataRedux = (city: string, tempUnit: string) => {
             const weatherData = await fetchWeatherData(city, tempUnit)
             // Si las coordenadas no son válidas fetchWeatherData retorna false
             if(weatherData){ 
+                console.log('aca')
                 const {current, forecast, hourly} = weatherData
                 dispatch(getDataSuccess({current, forecast, hourly}))
                 dispatch(setCityValidation({cityValidation: true}))
             } else {
                 dispatch(setCityValidation({cityValidation: false}))
-                dispatch(setIsLoading({value: false}))
+                dispatch(setIsLoading(false))
             }
         } catch(error){
             dispatch(getDataFailure())
