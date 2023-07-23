@@ -8,7 +8,7 @@
   --card-background: white;
   --text-color: gray;
   --body-background: rgb(122, 122, 122);
-  --dashboard-background: rgb(241, 241, 241);
+  --dashboard-background: #ececec;
   --sidebar-color: white;
   --carousel-arrow-color: rgb(121, 121, 121);
   --metric-button-background: white;
@@ -20,8 +20,8 @@
   --card-background: rgb(58, 58, 58);
   --text-color: white;
   --body-background: rgb(0, 0, 0);
-  --dashboard-background: rgb(35, 35, 35);
-  --sidebar-color: rgb(28, 24, 24);
+  --dashboard-background: #1F1F29;
+  --sidebar-color: #292727;
   --carousel-arrow-color: white;
   --metric-button-background: rgb(58, 58, 58);
   --metric-button-background-selected: white;
