@@ -49,7 +49,7 @@ const WeatherDataSM = () => {
                         <img src={weatherIcons[icon]} alt="icon" className='icon-extra-data' />
                         <span>{name} </span>
                         <span> - </span>
-                        <span> {hasData && current.pressure}{' '}{units[metricOptions][variable]}</span>
+                        <span> {hasData && current[variable]}{' '}{units[metricOptions][variable]}</span>
                     </div>
                     )
                 })
