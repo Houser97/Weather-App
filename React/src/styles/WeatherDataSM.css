@@ -46,7 +46,7 @@
     padding: 10px;
 }
 
-@media (max-width: 1600px) {
+@media (max-width: 1450px) {
     .weather-data-container-SM {
         display: flex;
     }

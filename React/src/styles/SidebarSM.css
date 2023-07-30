@@ -17,7 +17,7 @@
 
 }
 
-@media (max-width: 1600px) {
+@media (max-width: 1450px) {
     .siderbarSM-container {
         display: flex;
     }

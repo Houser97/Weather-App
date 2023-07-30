@@ -15,7 +15,7 @@
     }
 }
 
-@media (max-width: 1600px) {
+@media (max-width: 1450px) {
     .extraData-container{
         grid-template-columns: repeat(auto-fit, minmax(280px, 0.8fr));
     }

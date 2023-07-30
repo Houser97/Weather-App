@@ -6,7 +6,7 @@
     z-index: 1000;
 }
 
-@media (max-width: 1600px) {
+@media (max-width: 1450px) {
     .filter-container{
         width: 100vw;
         padding: 20px 40px;
