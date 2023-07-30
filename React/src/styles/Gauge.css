@@ -32,7 +32,7 @@
 
 .gauge__title{
   position: absolute;
-  top: 20px;
+  top: 30px;
   left: 20px;
   color: var(--text-color);
   margin: 5px;
