@@ -23,15 +23,17 @@ const Home = () => {
   }, [isLoading])
   
   return (
-    <div className='Home-container'>
-      {
-        isLoading && fetchOnce
-        ? <Loading /> 
-        : <>
-            <Sidebar />
-            <Dashboard />
-          </>
-      }
+    <div className="main__container">
+      <div className='Home-container'>
+        {
+          isLoading && fetchOnce
+          ? <Loading /> 
+          : <>
+              <Sidebar />
+              <Dashboard />
+            </>
+        }
+      </div>
     </div>
   )
 }
