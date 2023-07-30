@@ -5,7 +5,7 @@
     max-width: 100%;
     justify-content: space-between;
     align-items: center;
-    padding: 50px 10px;
+    padding: 40px 20px;
     row-gap: 20px;
     overflow: hidden; /*Previene que el Dashboard se expanda horizontralmente*/
 }
