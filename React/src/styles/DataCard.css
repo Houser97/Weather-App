@@ -5,12 +5,12 @@
     background-color: var(--card-background);
     border-radius: 10px;
     padding: 30px 20px;
-    padding-bottom: 10px;
     font-family: 'Lato', sans-serif;
     color: var(--text-color);
     /*max-height: 280px;*/
     height: 100%;
     width: 100%;
+    justify-content: space-between;
 }
 
 .icon-value {
