@@ -28,7 +28,7 @@
   --carousel-dots-color: white;
 }
 
-@media (max-width: 1600px) {
+@media (max-width: 1800px) {
   .app {
     padding: 0px;
   }

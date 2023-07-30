@@ -8,7 +8,7 @@
     padding: 50px;
 }
 
-@media (max-width: 1400px) {
+@media (max-width: 1600px) {
     .Sidebar-container{
         display: none;
         width: 300px;

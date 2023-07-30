@@ -90,9 +90,9 @@
 }
 
 
-@media (max-width: 400px) {
+@media (max-width: 500px) {
     .icon-extra-data{
-        width: 30px;
+        width: 40px;
     }
 
     .day-hour-container {
