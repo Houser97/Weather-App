@@ -46,13 +46,13 @@
     padding: 10px;
 }
 
-@media (max-width: 1400px) {
+@media (max-width: 1600px) {
     .weather-data-container-SM {
         display: flex;
     }
 }
 
-@media (max-width: 650px) {
+@media (max-width: 750px) {
     .weather-data-container-SM .icon {
         width: 50%;
     }
@@ -63,7 +63,7 @@
     }
 }
 
-@media (max-width: 450px) {
+@media (max-width: 600px) {
     .weather-data .temperature {
         font-size: 50px;
     }
@@ -72,12 +72,14 @@
         font-size: 30px;
     }
 
-    .weather-data-container-SM .icon {
-        width: 70%;
-    }
-
     .weather-data-container-SM .day-hour-container, 
     .weather-data-container-SM .hour {
         font-size: 34px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .weather-data-container-SM .icon {
+        width: 70%;
     }
 }
