@@ -2,7 +2,7 @@
   width: 100vw;
   min-height: 100vh;
   background-color: rgb(122, 122, 122);
-  padding: 50px;
+  padding: 15px;
   display: flex;
 
   --card-background: white;
