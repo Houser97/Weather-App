@@ -26,6 +26,7 @@ const data = [
 const ExtraData = () => {
   return (
     <div className='extraData-container'>
+      <Gauge />
       {
         data.map((current, index) => {
           return(
@@ -33,7 +34,6 @@ const ExtraData = () => {
           )
         })
       }
-      <Gauge />
     </div>
   )
 }
