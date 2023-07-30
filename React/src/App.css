@@ -1,8 +1,5 @@
 .app{
-  width: 100vw;
-  min-height: 100vh;
   background-color: rgb(122, 122, 122);
-  padding: 15px;
   display: flex;
 
   --card-background: white;
@@ -26,10 +23,4 @@
   --metric-button-background: rgb(58, 58, 58);
   --metric-button-background-selected: white;
   --carousel-dots-color: white;
-}
-
-@media (max-width: 1800px) {
-  .app {
-    padding: 0px;
-  }
 }

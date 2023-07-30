@@ -1,3 +1,11 @@
+.main__container{
+    width: 100vw;
+    min-height: 100vh;
+    padding: 10px 15px;
+    display: flex;
+    overflow: hidden;
+}
+
 .Home-container{
     background-color: var(--dashboard-background);
     border-radius: 50px;
@@ -9,6 +17,10 @@
 @media (max-width: 1800px) {
     .Home-container{
         border-radius: 0px;
-    }    
+    }   
+    .main__container{
+        padding: 0px;
+    }
+       
 }
   
